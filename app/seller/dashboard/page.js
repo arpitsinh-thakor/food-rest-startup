@@ -19,10 +19,10 @@ export default function Dashboard() {
                  >
 
                     <div
-                        className="col-span-2 flex flex-col p-4  gap-1 items-center "
+                        className="col-span-2 flex flex-col p-4  gap-2 items-center "
                      >
                         <button 
-                            className="w-full h-3/12 bg-blue-500 text-white rounded hover:bg-blue-600"
+                            className="w-full py-4 bg-blue-500 text-white rounded hover:bg-blue-600"
                             onClick={() => {
                                 setViewAddProduct(true);
                                 setViewProducts(false);
@@ -32,7 +32,7 @@ export default function Dashboard() {
                             Add Product 
                         </button>
                         <button 
-                            className="w-full h-3/12 bg-yellow-500 text-white rounded hover:bg-yellow-600"
+                            className="w-full py-4 bg-yellow-500 text-white rounded hover:bg-yellow-600"
                             onClick={() => {
                                 setViewAddProduct(false);
                                 setViewProducts(true);
@@ -42,7 +42,7 @@ export default function Dashboard() {
                             View Products
                         </button>
                         <button 
-                            className="w-full h-3/12 bg-red-500 text-white rounded hover:bg-red-600"
+                            className="w-full py-4 bg-red-500 text-white rounded hover:bg-red-600"
                             onClick={() =>{
                                 setViewAddProduct(false);
                                 setViewProducts(false);
