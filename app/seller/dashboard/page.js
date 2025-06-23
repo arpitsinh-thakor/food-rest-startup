@@ -4,8 +4,8 @@ import Link from "next/link";
 
 export default function Dashboard() {
 
-    const [viewAddProduct, setViewAddProduct] = useState(false);
-    const [viewProducts, setViewProducts] = useState(true);
+    const [viewAddProduct, setViewAddProduct] = useState(true);
+    const [viewProducts, setViewProducts] = useState(false);
     const [viewOrders, setViewOrders] = useState(false);
    
     return (
@@ -56,12 +56,57 @@ export default function Dashboard() {
                         className="col-span-8 p-4"
                         >
                         {viewAddProduct && (
-                            <div className="rounded shadow">
+                            <div className=" w-2/3 rounded shadow">
                                 <h2 className="text-xl font-semibold mb-2">Add Product</h2>
                                 <form className="flex flex-col space-y-4">
-                                    <input type="text" placeholder="Product Name" className="p-2 border rounded" />
-                                    <input type="number" placeholder="Price" className="p-2 border rounded" />
-                                    <textarea placeholder="Description" className="p-2 border rounded"></textarea>
+                                    <div className="flex flex-col">
+                                        <label className="text-md  ">Product Name</label>
+                                        <input type="text" placeholder="Product Name" className="p-2 border rounded mb-2" />
+                                    </div>
+
+                                    <div className="grid grid-cols-2 gap-4 items-baseline">
+                                    <div className="flex flex-col">
+                                            <label className="text-md ">Product Image</label>
+                                            <input type="file" accept="image/*" className="p-2 border rounded mb-2 " />
+                                    </div>
+                                        
+                                        <div className="flex flex-col">
+                                            <label className="text-md ">Select Category</label>
+                                            <select className="p-2 border rounded mb-2">
+                                                <option value="">Select Category</option>
+                                                <option value="electronics">Snacks</option>
+                                                <option value="clothing">Beverages</option>
+                                                <option value="home">Fruits</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="flex flex-col">
+                                        <label className="text-md ">Description</label>
+                                        <textarea placeholder="Product Description" className="p-2 border rounded mb-2" rows="2"></textarea>
+                                    </div>
+
+                                    <div className="grid grid-cols-2 gap-4 items-baseline">
+                                        <div className="flex flex-col">
+                                            <label className="text-md ">Quantity</label>
+                                            <input type="number" placeholder="Quantity" className="p-2 border rounded mb-2" />
+                                        </div>
+                                        <div className="flex flex-col">
+                                            <label className="text-md ">Price</label>
+                                            <input type="number" placeholder="Price" className="p-2 border rounded" />
+                                        </div>
+                                    </div>
+
+                                    <div className="grid grid-cols-2 gap-4 items-baseline">
+                                        <div className="flex flex-col">
+                                            <label className="text-md ">Weight</label>
+                                            <input type="number" placeholder="Weight" className="p-2 border rounded mb-2" />
+                                        </div>
+                                        <div className="flex flex-col">
+                                            <label className="text-md ">{`Self Life (days)`}</label>
+                                            <input type="number" placeholder="Self Life in days" className="p-2 border rounded mb-2" />
+                                        </div>
+                                    </div>
                                     <button type="submit" className="bg-green-500 text-white p-2 rounded">Add Product</button>
                                 </form>
                             </div>
