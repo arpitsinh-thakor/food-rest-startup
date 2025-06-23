@@ -4,64 +4,96 @@ import Link from "next/link";
 
 export default function Dashboard() {
 
-    const [addNewProduct, setAddNewProduct] = useState(false);
-
+    const [viewAddProduct, setViewAddProduct] = useState(false);
+    const [viewProducts, setViewProducts] = useState(true);
+    const [viewOrders, setViewOrders] = useState(false);
+   
     return (
-        <div className="flex flex-col items-center justify-center h-screen">
-        <h1 className="text-2xl font-bold mb-4">Dashboard - Seller</h1>
-        <p className="">Welcome to your dashboard!</p>
+       <div>   
+            <div
+             >
+                <h1 className="flex text-2xl font-bold mb-4 justify-center p-2">Seller Dashboard</h1>
 
-        <div className="mt-4">
-            <button className="bg-blue-500 text-white p-2 rounded hover:bg-blue
-            -600 transition-colors"
-                onClick={() => setAddNewProduct(false)}
-            >
-                View Products
-            </button>
-            <button 
-                className="ml-4 bg-green-500 text-white p-2 rounded hover:bg-green-600 transition-colors"
-                onClick={() => setAddNewProduct(true)}
-                >
-                Add New Product
-            </button>
-        </div>
+                <div
+                    className="grid grid-cols-10 gap-2"
+                 >
 
-        {addNewProduct ? (
-            <div className="flex flex-col items-center mt-4 p-4 border rounded w-1/3">
-                <h2 className="text-xl font-bold mb-2">Add New Product</h2>
-                <form className="flex flex-col space-y-4">
-                    <input type="text" placeholder="Product Name" className="p-2 border rounded" />
-                    <input type="number" placeholder="Price" className="p-2 border rounded" />
-                    <textarea placeholder="Description" className="p-2 border rounded"></textarea>
-                    <button type="submit" className="bg-blue-500 text-white p-2 rounded"
-                        onClick={(e) => {
-                            e.preventDefault();
-                            // ligic to add product 
-                            console.log("Product added");
-                            setAddNewProduct(false);
-                        }}
-                        >Add Product</button>
-                </form>
+                    <div
+                        className="col-span-2 flex flex-col p-4  gap-1 items-center "
+                     >
+                        <button 
+                            className="w-full h-3/12 bg-blue-500 text-white rounded hover:bg-blue-600"
+                            onClick={() => {
+                                setViewAddProduct(true);
+                                setViewProducts(false);
+                                setViewOrders(false);
+                            }}
+                            >
+                            Add Product 
+                        </button>
+                        <button 
+                            className="w-full h-3/12 bg-yellow-500 text-white rounded hover:bg-yellow-600"
+                            onClick={() => {
+                                setViewAddProduct(false);
+                                setViewProducts(true);
+                                setViewOrders(false);
+                            }}
+                            >
+                            View Products
+                        </button>
+                        <button 
+                            className="w-full h-3/12 bg-red-500 text-white rounded hover:bg-red-600"
+                            onClick={() =>{
+                                setViewAddProduct(false);
+                                setViewProducts(false);
+                                setViewOrders(true);
+                            }}
+                            >
+                            Orders
+                        </button>
+                    </div>
+                    <div
+                        className="col-span-8 p-4"
+                        >
+                        {viewAddProduct && (
+                            <div className="rounded shadow">
+                                <h2 className="text-xl font-semibold mb-2">Add Product</h2>
+                                <form className="flex flex-col space-y-4">
+                                    <input type="text" placeholder="Product Name" className="p-2 border rounded" />
+                                    <input type="number" placeholder="Price" className="p-2 border rounded" />
+                                    <textarea placeholder="Description" className="p-2 border rounded"></textarea>
+                                    <button type="submit" className="bg-green-500 text-white p-2 rounded">Add Product</button>
+                                </form>
+                            </div>
+                        )}
 
-                <button
-                    className="mt-4 bg-red-500 text-white p-2 rounded hover:bg-red-600 transition-colors"
-                    onClick={() => setAddNewProduct(false)}
-                >
-                    Cancel
-                </button>
+                        {viewProducts && (
+                            <div className="rounded shadow">
+                                <h2 className="text-xl font-semibold mb-2">Your Products</h2>
+                                <ul className="space-y-2">
+                                    <li className="p-2 border rounded">Product 1 - $10</li>
+                                    <li className="p-2 border rounded">Product 2 - $20</li>
+                                    <li className="p-2 border rounded">Product 3 - $30</li>
+                                </ul>
+                            </div>
+                        )}
 
-            </div>
-                ) : (
-                    <div className="flex flex-col mt-4 p-4 border rounded w-2/3">
-                        <h2 className="text-xl font-bold mb-2">Seller{"'"}s Products Added</h2>
+                        {viewOrders && (
+                            <div className="rounded shadow">
+                                <h2 className="text-xl font-semibold mb-2">Your Orders</h2>
+                                <ul className="space-y-2">
+                                    <li className="p-2 border rounded">Order 1 - Product 1</li>
+                                    <li className="p-2 border rounded">Order 2 - Product 2</li>
+                                    <li className="p-2 border rounded">Order 3 - Product 3</li>
+                                </ul>
+                            </div>
+                        )}
                     </div>
 
-                )
-            }
+                </div>
 
-
-       
-
-        </div>
+                
+            </div>
+       </div>
     );
 }
