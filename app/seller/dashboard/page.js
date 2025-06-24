@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import Link from "next/link";
 
 export default function Dashboard() {
 
@@ -67,16 +66,32 @@ export default function Dashboard() {
                                     <div className="grid grid-cols-2 gap-4 items-baseline">
                                     <div className="flex flex-col">
                                             <label className="text-md ">Product Image</label>
-                                            <input type="file" accept="image/*" className="p-2 border rounded mb-2 " />
+                                            <input type="file" accept="image/*" 
+                                                className="p-1 border rounded mb-2
+                                                file:mr-4 file:py-1 file:px-2
+                                                file:rounded file:border-0
+                                                file:text-sm file:font-semibold
+                                                file:bg-blue-50 file:text-blue-700
+                                                hover:file:bg-blue-100 cursor-pointer"
+                                                />
                                     </div>
                                         
                                         <div className="flex flex-col">
                                             <label className="text-md ">Select Category</label>
-                                            <select className="p-2 border rounded mb-2">
-                                                <option value="">Select Category</option>
-                                                <option value="electronics">Snacks</option>
-                                                <option value="clothing">Beverages</option>
-                                                <option value="home">Fruits</option>
+                                            <select 
+                                                className="p-2 border rounded mb-2 hover: cursor-pointer ">
+                                                        <option 
+                                                            className="text-gray-500"
+                                                            value="" disabled selected>Select Category</option>
+                                                        <option 
+                                                            className="text-gray-700"
+                                                            value="fruits">Fruits</option>
+                                                        <option 
+                                                            className="text-gray-700"
+                                                            value="vegetables">Vegetables</option>
+                                                        <option 
+                                                            className="text-gray-700"
+                                                            value="dairy">Dairy</option>
                                             </select>
                                         </div>
                                     </div>
