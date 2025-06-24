@@ -42,7 +42,7 @@ export default function Seller() {
                         />
                         <button
                             onClick={() => setIsSignUp(false)}
-                            className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition-colors"
+                            className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition-colors cursor-pointer"
                         >
                             Sign Up
                         </button>
@@ -73,7 +73,7 @@ export default function Seller() {
                         />
                         <button
                             onClick={() => router.push("/seller/dashboard")}
-                            className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition-colors"
+                            className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition-colors  cursor-pointer"
                         >
                             Sign In
                         </button>
