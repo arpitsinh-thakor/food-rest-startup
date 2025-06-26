@@ -94,7 +94,13 @@ const ProductCardDetailed = ({ product }) => {
                       <span className="font-semibold text-gray-800">{cartQuantity}</span>
                       <button
                         className="flex-1 bg-blue-500 text-white py-1 rounded hover:bg-blue-600 transition"
-                        onClick={() => setCartQuantity(cartQuantity + 1)}
+                        onClick={() => {
+                            if (cartQuantity < quantity) {
+                                setCartQuantity(cartQuantity + 1);
+                            } else {
+                                alert("Cannot add more than available stock");
+                            }
+                        }}
                       >
                         +
                       </button>

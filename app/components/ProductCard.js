@@ -18,7 +18,7 @@ const ProductCard = ({ product }) => {
   const [addedToCart, setAddedToCart] = useState(false);
   const [quantity, setQuantity] = useState(1);
 
-  const originalPrice = discountPercent
+  const discountedPrice = discountPercent
     ? (price / (1 - discountPercent / 100)).toFixed(2)
     : null;
 
@@ -75,7 +75,7 @@ const ProductCard = ({ product }) => {
           {discountPercent ? (
             <>
               <span className="text-gray-500 line-through text-sm">
-                ₹{originalPrice}
+                ₹{discountedPrice}
               </span>
               <span className="text-red-600 font-bold text-lg">₹{price}</span>
             </>
@@ -102,7 +102,13 @@ const ProductCard = ({ product }) => {
                 <span className="font-semibold text-gray-800">{quantity}</span>
                 <button
                   className="flex-1 bg-blue-500 text-white py-1 rounded hover:bg-blue-600 transition"
-                  onClick={() => setQuantity(quantity + 1)}
+                  onClick={() => {
+                    if (quantity < product.quantity) {
+                      setQuantity(quantity + 1);
+                    }else{
+                        alert("Cannot add more than available stock");
+                    }
+                  }}
                 >
                   +
                 </button>

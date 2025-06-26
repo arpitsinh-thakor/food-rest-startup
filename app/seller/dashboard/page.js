@@ -16,6 +16,8 @@ export default function Dashboard() {
     const [price, setPrice] = useState("");
     const [weight, setWeight] = useState("");    
     const [selfLife, setSelfLife] = useState("");
+    const [discountPercent, setDiscountPercent] = useState("");
+    const [isNew, setIsNew] = useState(false);
 
     const [error, setError] = useState("");
 
@@ -39,6 +41,10 @@ export default function Dashboard() {
         formData.append("price", price);
         formData.append("weight", weight);
         formData.append("selfLife", selfLife);
+        if (discountPercent) {
+            formData.append("discountPercent", discountPercent);    
+        }
+        formData.append("isNew", isNew);
 
         try {   
             const response = await axios.post("/api/seller/add-product", formData, {
@@ -56,7 +62,10 @@ export default function Dashboard() {
                 setPrice("");
                 setWeight("");
                 setSelfLife("");
+                setDiscountPercent("");
+                setIsNew(false);
                 setError("");
+
             } else {
                 console.error("Failed to add product", response.data);
                 throw new Error("Failed to add product");
@@ -230,6 +239,30 @@ export default function Dashboard() {
                                                 />
                                         </div>
                                     </div>
+                                    <div className="grid grid-cols-2 gap-4 items-baseline">
+                                        <div className="flex flex-col">
+                                            <label className="text-md ">Discount Percent</label>
+                                            <input
+                                                type="number" placeholder="Discount Percent"
+                                                min={0} max={100}
+                                                className="p-2 border rounded mb-2"
+                                                value={discountPercent}
+                                                onChange={(e) => setDiscountPercent(e.target.value)}
+                                                />
+                                        </div>
+                                        <div className="flex flex-col">
+                                            <label className="text-md ">Is New Product?</label>
+                                            <select
+                                                className="p-2 border rounded mb-2 hover: cursor-pointer"
+                                                value={isNew}
+                                                onChange={(e) => setIsNew(e.target.value === "true")}
+                                                >
+                                                    <option value="false">No</option>
+                                                    <option value="true">Yes</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    
                                     <button 
                                         type="submit" 
                                         className="bg-green-500 text-white p-2 rounded hover:bg-green-600 cursor-pointer"

@@ -24,7 +24,7 @@ export const feedData = [
     description:
       "Traditional Indian spiced milk infused with premium Kashmiri saffron strands. Served chilled for a refreshing taste.",
     category: "Beverages",
-    quantity: 120,
+    quantity: 10,
     weight: 250,
     selfLife: 15,
     discountPercent: 20,
@@ -37,7 +37,7 @@ export const feedData = [
     description:
       "Soft-ripened French cheese with a creamy interior and white bloomy rind. Perfect for wine pairings and cheese boards.",
     category: "Dairy",
-    quantity: 80,
+    quantity: 8,
     weight: 300,
     selfLife: 21,
     isNew: true,
@@ -50,7 +50,7 @@ export const feedData = [
     description:
       "Juicy and aromatic Alphonso mangoes from Ratnagiri, India. Known for their golden hue and intense sweetness.",
     category: "Fruits",
-    quantity: 100,
+    quantity: 20,
     weight: 1000,
     selfLife: 7,
     discountPercent: 25,
