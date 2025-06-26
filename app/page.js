@@ -1,10 +1,10 @@
+'use client'
+import Feed from "./components/Feed";
 
 export default function Home() {
   return (
-    <div className="grid  items-center justify-center h-screen ">
-      <div >
-        Home Page
-      </div>
+    <div  className="flex flex-col gap-5 h-screen">
+      <Feed />
     </div>
   );
 }

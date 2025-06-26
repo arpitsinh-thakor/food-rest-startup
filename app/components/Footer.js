@@ -3,7 +3,10 @@ import React from 'react'
 const Footer = () => {
   return (
     <div 
-        className="bg-gray-800 text-white py-4 mt-8 border-t border-gray-700 "
+      //stick footer to the bottom of the page after all content
+      className="bg-gray-800 text-white py-4 mt-auto"
+      style={{ position: 'relative', bottom: 0, width: '100%' }}
+      
         >
       <div className="container mx-auto text-center">
         <p className="text-sm">

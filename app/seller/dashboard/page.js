@@ -19,6 +19,10 @@ export default function Dashboard() {
 
     const [error, setError] = useState("");
 
+    const checkAllFields = () => {
+        return productName && productImage && category && description && quantity && price && weight && selfLife;
+    }
+
     const handleAddProduct = async (e) => {
         e.preventDefault();
         if (!productName || !productImage || !category || !description || !quantity || !price || !weight || !selfLife) {
@@ -229,8 +233,10 @@ export default function Dashboard() {
                                     <button 
                                         type="submit" 
                                         className="bg-green-500 text-white p-2 rounded hover:bg-green-600 cursor-pointer"
-                                        onClick={(e) => {handleAddProduct(e)}}
+                                        onClick={(e) => {if(checkAllFields()) handleAddProduct(e)}}
                                         >Add Product</button>
+
+                                    {error && <div className="text-red-500 mt-2">{error}</div>}
                                 </form>
                             </div>
                         )}

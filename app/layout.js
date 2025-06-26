@@ -22,14 +22,23 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>
-        <div>
-          <Navbar />
-        </div>
-        {children}
-        <div>
-          <Footer />
-        </div>
+      <body 
+        className="font-sans bg-gray-100 text-gray-900 "
+        >
+          <div
+            className={`${geistSans.variable} ${geistMono.variable} flex flex-col min-h-screen`}
+            style={{ fontFamily: "var(--font-geist-sans)" }}
+            >
+            <div>
+              <Navbar />
+            </div>
+            <div className="container mx-auto p-4">
+              {children}
+            </div>
+            {/* <div>
+              <Footer />
+            </div> */}
+          </div>
       </body>
     </html>
   );
