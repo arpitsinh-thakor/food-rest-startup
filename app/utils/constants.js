@@ -1,53 +1,125 @@
 import img from "../assests/product _img.jpg";
-//dummy api for testing purposes of feed component
-// should contain an array of objects with properties like id, productName, productImage, price.
+
+
 export const feedData = [
-    {
-        id: 1,
-        productName: "Product 1 and this is a long name to test the truncation",
-        productImage:  img,
-        price: "10.00"
-    },
-    {
-        id: 2,
-        productName: "Product 2",
-        productImage: img,
-        price: "15.00"
-    },
-    {
-        id: 3,
-        productName: "Product 3",
-        productImage: img,
-        price: "20.00"
-    },
-    {
-        id: 4,
-        productName: "Product 4",
-        productImage: img,
-        price: "25.00"
-    },
-    {
-        id: 5,
-        productName: "Product 5",
-        productImage: img,
-        price: "30.00"
-    },
-    {
-        id: 6,
-        productName: "Product 6",
-        productImage: img,
-        price: "35.00"
-    },
-    {
-        id: 7,
-        productName: "Product 7",
-        productImage: img,
-        price: "40.00"
-    },
-    {
-        id: 8,
-        productName: "Product 8",
-        productImage: img,
-        price: "45.00"
-    }
-]
+  {
+    id: 1,
+    productName: "Belgian Dark Chocolate Truffles",
+    productImage: img,
+    price: "18.99",
+    description:
+      "Handcrafted dark chocolate truffles made with 70% Belgian cocoa. Rich and creamy texture with a hint of espresso.",
+    category: "Snacks",
+    quantity: 60,
+    weight: 200,
+    selfLife: 90,
+  },
+  {
+    id: 2,
+    productName: "Kashmiri Saffron Milk Drink",
+    productImage: img,
+    price: "5.49",
+    description:
+      "Traditional Indian spiced milk infused with premium Kashmiri saffron strands. Served chilled for a refreshing taste.",
+    category: "Beverages",
+    quantity: 120,
+    weight: 250,
+    selfLife: 15,
+  },
+  {
+    id: 3,
+    productName: "French Brie Cheese",
+    productImage: img,
+    price: "12.50",
+    description:
+      "Soft-ripened French cheese with a creamy interior and white bloomy rind. Perfect for wine pairings and cheese boards.",
+    category: "Dairy",
+    quantity: 80,
+    weight: 300,
+    selfLife: 21,
+  },
+  {
+    id: 4,
+    productName: "Alphonso Mangoes (Ratnagiri)",
+    productImage: img,
+    price: "25.00",
+    description:
+      "Juicy and aromatic Alphonso mangoes from Ratnagiri, India. Known for their golden hue and intense sweetness.",
+    category: "Fruits",
+    quantity: 100,
+    weight: 1000,
+    selfLife: 7,
+  },
+  {
+    id: 5,
+    productName: "Organic Broccoli Crowns",
+    productImage: img,
+    price: "3.99",
+    description:
+      "Fresh organic broccoli, harvested at peak ripeness. Packed with fiber, vitamins, and antioxidants.",
+    category: "Vegetables",
+    quantity: 150,
+    weight: 350,
+    selfLife: 10,
+  },
+  {
+    id: 6,
+    productName: "Quinoa (Peruvian White)",
+    productImage: img,
+    price: "9.25",
+    description:
+      "Naturally gluten-free Peruvian white quinoa. High in protein and ideal for salads, bowls, or stir-fries.",
+    category: "Grains",
+    quantity: 200,
+    weight: 500,
+    selfLife: 180,
+  },
+  {
+    id: 7,
+    productName: "Australian Grass-Fed Lamb Chops",
+    productImage: img,
+    price: "32.00",
+    description:
+      "Premium lamb chops from grass-fed Australian sheep. Tender, juicy, and perfect for grilling or roasting.",
+    category: "Meat",
+    quantity: 40,
+    weight: 600,
+    selfLife: 5,
+  },
+  {
+    id: 8,
+    productName: "Norwegian Salmon Fillet",
+    productImage: img,
+    price: "28.75",
+    description:
+      "Fresh Atlantic salmon fillet sourced from sustainable farms in Norway. Rich in omega-3s and flavor.",
+    category: "Seafood",
+    quantity: 50,
+    weight: 500,
+    selfLife: 4,
+  },
+  {
+    id: 9,
+    productName: "Greek Yogurt (Strained, Plain)",
+    productImage: img,
+    price: "4.50",
+    description:
+      "Creamy and protein-rich strained Greek yogurt. No added sugar, ideal for breakfast or smoothies.",
+    category: "Dairy",
+    quantity: 90,
+    weight: 150,
+    selfLife: 12,
+  },
+  {
+    id: 10,
+    productName: "Thai Jasmine Rice",
+    productImage: img,
+    price: "6.99",
+    description:
+      "Fragrant long-grain white rice from Thailand. Soft and fluffy texture, perfect for curries and stir-fries.",
+    category: "Grains",
+    quantity: 300,
+    weight: 1000,
+    selfLife: 365,
+  },
+];

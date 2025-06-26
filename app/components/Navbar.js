@@ -8,6 +8,8 @@ const Navbar = () => {
                     <Link href="/" className="text-xl font-bold">Food-Rest-Startup</Link>
                     <Link href="/seller" className="hover:text-gray-300 border-b-2 border-white pb-1 hover:border-gray-300"   
                         >Seller</Link>
+                    <Link href="/products" className="hover:text-gray-300 border-b-2 border-white pb-1 hover:border-gray-300"
+                        >All Products</Link>
                 </div>
                 <div className="space-x-4">
                     <Link href="/login" className="hover:text-gray-300">Login</Link>
