@@ -13,6 +13,8 @@ export const feedData = [
     quantity: 60,
     weight: 200,
     selfLife: 90,
+    discountPercent: 10,
+    isNew: true,
   },
   {
     id: 2,
@@ -25,6 +27,7 @@ export const feedData = [
     quantity: 120,
     weight: 250,
     selfLife: 15,
+    discountPercent: 20,
   },
   {
     id: 3,
@@ -37,6 +40,7 @@ export const feedData = [
     quantity: 80,
     weight: 300,
     selfLife: 21,
+    isNew: true,
   },
   {
     id: 4,
@@ -49,6 +53,7 @@ export const feedData = [
     quantity: 100,
     weight: 1000,
     selfLife: 7,
+    discountPercent: 25,
   },
   {
     id: 5,
@@ -61,6 +66,7 @@ export const feedData = [
     quantity: 150,
     weight: 350,
     selfLife: 10,
+    isNew: true,
   },
   {
     id: 6,
@@ -73,6 +79,8 @@ export const feedData = [
     quantity: 200,
     weight: 500,
     selfLife: 180,
+    isNew: true,
+    discountPercent: 50,
   },
   {
     id: 7,
@@ -109,6 +117,7 @@ export const feedData = [
     quantity: 90,
     weight: 150,
     selfLife: 12,
+    isNew: true,
   },
   {
     id: 10,
@@ -121,5 +130,6 @@ export const feedData = [
     quantity: 300,
     weight: 1000,
     selfLife: 365,
+    discountPercent: 15,
   },
 ];
