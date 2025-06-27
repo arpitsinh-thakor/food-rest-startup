@@ -2,16 +2,16 @@
 import React, { use } from 'react';
 import Image from 'next/image';
 import { XCircle } from 'lucide-react';
+import {toast} from 'react-hot-toast';  
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { removeItemFromCart, changeQuantityInCart, decrementItemQuantity } from '../store/features/cartSlice';
-import { selectCartSubtotal, selectItemQuantity } from '../store/features/cartSlice';
+import { selectCartSubtotal, selectItemQuantity  } from '../store/features/cartSlice';
 
 const CartCard = ({ product, onRemove }) => {
-  const { id, productName, productImage, price, quantity = 1, weight = 'N/A' } = product;
+  const { id, productName, productImage, price, quantity, weight = 'N/A' } = product;
   const [subtotal, setSubtotal] = useState(price * quantity);
   const quantityFromStore = useSelector((state) => selectItemQuantity(state, id));
-
 
   const dispatch = useDispatch();
 
@@ -23,15 +23,24 @@ const CartCard = ({ product, onRemove }) => {
         }
         // Update subtotal based on new quantity
         setSubtotal(price * newQuantity);
+
     }
 
     const handleRemoveItem = (itemId) => {
         dispatch(removeItemFromCart(itemId));
+        toast.error(`${productName} removed from cart!`, {
+            position: "top-center",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
     }
     const fixedPrice = (price) => {
         return price.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
     };
-
     useEffect(() => {
         // Update subtotal whenever the quantity changes
         setSubtotal(price * quantityFromStore);
@@ -56,11 +65,18 @@ const CartCard = ({ product, onRemove }) => {
               }}
               className="border-b-black box-border border-2 text-gray-500 rounded px-1 py-1 text-sm"
             >
-              {[...Array(20).keys()].map(i => (
-                <option key={i + 1} value={i + 1}>
-                  {i + 1}
-                </option>
-              ))}
+            {
+                Array.from(
+                { length: 5 },
+                (_, i) => Math.max(1, quantityFromStore - 2) + i
+                )
+                .filter(num => num >= 1)
+                .map(num => (
+                    <option key={num} value={num}>
+                    {num}
+                    </option>
+                ))
+            }
             </select>
           </div>
         </div>

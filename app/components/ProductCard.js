@@ -2,8 +2,11 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import {toast  } from 'react-hot-toast';
+
 import {useSelector, useDispatch}  from 'react-redux';
 import { addItemToCart, decrementItemQuantity, removeItemFromCart } from '../store/features/cartSlice';
+
 const ProductCard = ({ product }) => {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -96,7 +99,17 @@ const ProductCard = ({ product }) => {
                   onClick={() =>
                     quantity > 1
                       ? (dispatch(decrementItemQuantity(id)), setQuantity(quantity - 1)):
-                        dispatch(removeItemFromCart(id), setAddedToCart(false), setQuantity(1))
+                        dispatch(removeItemFromCart(id), setAddedToCart(false), setQuantity(1),
+                        toast.error(`${productName} removed from cart!`, {
+                          position: "top-center",
+                          autoClose: 1500,
+                          hideProgressBar: false,
+                          closeOnClick: true,
+                          pauseOnHover: true,
+                          draggable: true,
+                          progress: undefined,
+                        })
+                      )
                   }
                 >
                   −
@@ -107,7 +120,7 @@ const ProductCard = ({ product }) => {
                   onClick={() => {
                     if (quantity < product.quantity) {
                       setQuantity(quantity + 1);
-                      dispatch(addItemToCart({ ...product, quantity: 1 }));
+                      dispatch(addItemToCart({ ...product, quantity: 1,}));
                     }else{
                         alert("Cannot add more than available stock");
                     }
@@ -134,6 +147,15 @@ const ProductCard = ({ product }) => {
                 onClick={() => {
                   dispatch(addItemToCart({ ...product, quantity }));
                   setAddedToCart(true);
+                  toast.success(`${productName} added to cart!`, {
+                    position: "top-center",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                  });
                 }}
             >
               Add to Cart

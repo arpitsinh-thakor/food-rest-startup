@@ -1,6 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import Image from 'next/image';
+import {toast} from 'react-hot-toast';
 
 const ProductCardDetailed = ({ product }) => {
   const {
@@ -82,7 +83,20 @@ const ProductCardDetailed = ({ product }) => {
                         onClick={() =>
                             cartQuantity > 1
                             ? setCartQuantity(cartQuantity - 1)
-                            : setAddedToCart(false)
+                            : (
+                                setAddedToCart(false),
+                                setCartQuantity(1),
+                                toast.error(`${productName} removed from cart!`, {
+                                  position: "top-center",
+                                  autoClose: 2000,
+                                  hideProgressBar: false,
+                                  closeOnClick: true,
+                                  pauseOnHover: true,
+                                  draggable: true,
+                                  progress: undefined,
+                                }
+                              )
+                            )
                         }
                       >
                         −
@@ -93,8 +107,17 @@ const ProductCardDetailed = ({ product }) => {
                         onClick={() => {
                             if (cartQuantity < quantity) {
                                 setCartQuantity(cartQuantity + 1);
+                                 
                             } else {
-                                alert("Cannot add more than available stock");
+                                toast.error(`Cannot add more than available quantity (${quantity})`, {
+                                  position: "top-center",
+                                  autoClose: 2000,
+                                  hideProgressBar: false,
+                                  closeOnClick: true,
+                                  pauseOnHover: true,
+                                  draggable: true,
+                                  progress: undefined,
+                                });
                             }
                         }}
                       >
@@ -116,7 +139,19 @@ const ProductCardDetailed = ({ product }) => {
                 ) : (
                   <button
                     className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition font-medium"
-                    onClick={() => setAddedToCart(true)}
+                    onClick={() => {
+                      setAddedToCart(true)
+                      setCartQuantity(1);
+                      toast.success(`${productName} added to cart!`, {
+                        position: "top-center",
+                        autoClose: 2000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                      });
+                    }}
                   >
                     Add to Cart
                   </button>
