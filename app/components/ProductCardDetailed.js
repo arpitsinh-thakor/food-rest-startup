@@ -38,10 +38,6 @@ const ProductCardDetailed = ({ product }) => {
             loading="lazy"
           />
 
-          <div className="absolute inset-0 bg-black bg-opacity-40 rounded-lg opacity-0 group-hover:opacity-70 transition-opacity duration-300 flex items-center justify-center">
-            <p className="text-white text-sm font-medium">Hover for more info</p>
-          </div>
-
           {isNew && (
             <span className="absolute top-3 left-3 bg-green-500 text-white text-xs font-semibold px-2 py-1 rounded shadow">
               NEW
