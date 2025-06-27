@@ -61,10 +61,10 @@ const EditProduct = ({ product, setIsEditing}) => {
   return (
     // This component is a placeholder for editing a product.
     // All parameters of product should be editable.
-    <div className="bg-white text-black rounded-lg shadow-md p-4 flex flex-col gap-4">
+    <div className="bg-white text-black rounded-lg shadow-md p-4 flex flex-col gap-1">
       <h2 className="text-xl font-semibold mb-2">Edit Product</h2>
 
-      <form className="flex flex-col space-y-4">
+      <form className="flex flex-col ">
         <div className="flex flex-col">
           <label className="text-md  ">Product Name</label>
           <input
