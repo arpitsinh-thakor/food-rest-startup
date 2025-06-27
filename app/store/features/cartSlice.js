@@ -48,6 +48,16 @@
                     state.items.splice(existingItemIndex, 1);
                 }
             },
+            changeQuantityInCart(state, action) {
+                const { itemId, newQuantity } = action.payload;
+                const existingItemIndex = state.items.findIndex((i) => i.id === itemId);
+                if (existingItemIndex >= 0) {
+                    const item = state.items[existingItemIndex];
+                    const oldQuantity = item.quantity;
+                    item.quantity = newQuantity;
+                    state.totalAmount += (newQuantity - oldQuantity) * item.price;
+                }
+            },
             clearCart(state) {
                 state.items = [];
                 state.totalAmount = 0;
@@ -65,6 +75,7 @@
         addItemToCart,
         decrementItemQuantity,
         removeItemFromCart,
+        changeQuantityInCart,
         clearCart,
         setLoading,
         setError,
@@ -74,6 +85,13 @@
     export const selectCartItemCount = (state) => state.cart.items.reduce((total, item) => total + item.quantity, 0);
     export const selectCartTotalItems = (state) => state.cart.items.length;
     export const selectCartTotalAmount = (state) => state.cart.totalAmount;
+    export const selectCartSubtotal = (state) => {
+        return state.cart.items.reduce((total, item) => total + item.price * item.quantity, 0);
+    };
+    export const selectItemQuantity = (state, itemId) => {
+        const existingItem = state.cart.items.find(item => item.id === itemId);
+        return existingItem ? existingItem.quantity : 0;
+    }
     export const selectCartLoading = (state) => state.cart.loading;
     export const selectCartError = (state) => state.cart.error;
 
