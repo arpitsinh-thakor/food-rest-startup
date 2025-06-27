@@ -28,6 +28,9 @@ const CartCard = ({ product, onRemove }) => {
     const handleRemoveItem = (itemId) => {
         dispatch(removeItemFromCart(itemId));
     }
+    const fixedPrice = (price) => {
+        return price.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+    };
 
     useEffect(() => {
         // Update subtotal whenever the quantity changes
@@ -65,7 +68,7 @@ const CartCard = ({ product, onRemove }) => {
 
       {/* Subtotal */}
       <div className="col-span-2 text-lg text-gray-700 font-semibold text-center border-l-2 border-gray-500 h-full flex items-center justify-center">
-        ₹{subtotal}
+        ₹{fixedPrice(subtotal)}
       </div>
 
       {/* Remove Button */}
