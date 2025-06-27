@@ -2,9 +2,11 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-
+import {useSelector, useDispatch}  from 'react-redux';
+import { addItemToCart, decrementItemQuantity, removeItemFromCart } from '../store/features/cartSlice';
 const ProductCard = ({ product }) => {
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const {
     id,
@@ -93,8 +95,8 @@ const ProductCard = ({ product }) => {
                   className="flex-1 bg-blue-500 text-white py-1 rounded hover:bg-blue-600 transition"
                   onClick={() =>
                     quantity > 1
-                      ? setQuantity(quantity - 1)
-                      : setAddedToCart(false)
+                      ? (dispatch(decrementItemQuantity(id)), setQuantity(quantity - 1)):
+                        dispatch(removeItemFromCart(id), setAddedToCart(false), setQuantity(1))
                   }
                 >
                   −
@@ -105,6 +107,7 @@ const ProductCard = ({ product }) => {
                   onClick={() => {
                     if (quantity < product.quantity) {
                       setQuantity(quantity + 1);
+                      dispatch(addItemToCart({ ...product, quantity: 1 }));
                     }else{
                         alert("Cannot add more than available stock");
                     }
@@ -128,7 +131,10 @@ const ProductCard = ({ product }) => {
           ) : (
             <button
                 className="w-full bg-blue-500 text-white py-1.5 rounded hover:bg-blue-600 transition text-sm"
-                onClick={() => setAddedToCart(true)}
+                onClick={() => {
+                  dispatch(addItemToCart({ ...product, quantity }));
+                  setAddedToCart(true);
+                }}
             >
               Add to Cart
             </button>

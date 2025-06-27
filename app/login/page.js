@@ -3,6 +3,9 @@ import { useState } from "react";
 import axios from "axios";
 const { useRouter } = require("next/navigation");
 
+import { useSelector, useDispatch } from "react-redux";
+import { setUser } from "../store/features/userSlice";
+
 export default function Login() {
 
     const router = useRouter();
@@ -14,22 +17,46 @@ export default function Login() {
     const [isLoginForm, setIsLoginForm] = useState(true);
     const [error, setError] = useState("");
 
+    const dispatch = useDispatch();
+    const user = useSelector((state) => state.user.user);
+
+
+    const saveUser = ({id, firstName, lastName, email}) => {
+        const user = {
+            id,
+            firstName,
+            lastName,
+            email,
+        };
+        dispatch(setUser(user));
+    }
+
     const handleSignIn = async (e) => {
         e.preventDefault();
         try {
 
-            if (!email || !password) {
-                setError("Email and Password are required");
-                return;
-            }
-            const response = await axios.post("/api/login", {
-                email,
-                password
-            });
-            if (response.status === 200) {
-                console.log("Login successful", response.data);
+            saveUser({
+                id:  "12345",
+                firstName: firstName || "John",
+                lastName: lastName || "Doe",
+                email:  email || "johndoe_signin@gmail.com",
+            })
+
+            // if (!email || !password) {
+            //     setError("Email and Password are required");
+            //     return;
+            // }
+            // const response = await axios.post("/api/login", {
+            //     email,
+            //     password
+            // });
+            // if (response.status === 200) {
+            //     console.log("Login successful", response.data);
+                
+                // saveUser(response.data);
+
                 router.push("/");
-            }
+            // }
             
         } catch (err) {
             setError(err.message);
@@ -38,23 +65,34 @@ export default function Login() {
     const handleSignUp = async (e) => {
         e.preventDefault();
         try {
-            if (!firstName || !lastName || !email || !password) {
-                setError("All fields are required");
-                return;
-            }
-            const response = await axios.post("/api/signup", {
-                firstName,
-                lastName,
-                email,
-                password
-            });
-            if (response.status === 200) {
-                console.log("SignUp successful", response.data);
+
+            saveUser({
+                id:  "12345",
+                firstName: firstName || "John",
+                lastName: lastName || "Doe",
+                email:  email || "johndoe_signup@gmail.com"
+            })
+            // if (!firstName || !lastName || !email || !password) {
+            //     setError("All fields are required");
+            //     return;
+            // }
+            // const response = await axios.post("/api/signup", {
+            //     firstName,
+            //     lastName,
+            //     email,
+            //     password
+            // });
+            // if (response.status === 200) {
+            //     console.log("SignUp successful", response.data);
+            //     // Dispatch login action to Redux store
+                
+            //     saveUser(response.data);
+
                 router.push("/");
             }
-        } catch (err) {
+          catch (err) {
             setError(err.message);
-        }
+          }
     }
 
     return (
