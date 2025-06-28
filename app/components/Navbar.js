@@ -2,12 +2,14 @@
 
 import Link from "next/link";
 import { useSelector } from "react-redux";
-import { selectIsAuthenticated } from "../store/features/userSlice";
+import { selectIsAuthenticated, selectUserFirstName } from "../store/features/userSlice";
 import { UserCircle } from "lucide-react";
 import { useState, useRef } from "react";
 
 const Navbar = () => {
   const isAuthenticated = useSelector(selectIsAuthenticated);
+  const userFirstName = useSelector(selectUserFirstName);
+  const greeting = isAuthenticated ? `Hello, ${userFirstName}` : "Welcome, Guest";
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const timeoutRef = useRef(null);
 
@@ -37,6 +39,13 @@ const Navbar = () => {
 
         {/* Right: Auth / Profile Section */}
         <div className="flex items-center space-x-6 relative">
+
+          <div>
+            <span className="
+            text-sm text-gray-300 font-semibold"
+              >{greeting}</span>
+          </div>
+
           <Link href="/cart" className="hover:text-gray-300">Cart</Link>
 
           {!isAuthenticated ? (

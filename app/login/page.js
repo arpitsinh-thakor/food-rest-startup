@@ -14,6 +14,7 @@ export default function Login() {
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
     const [isLoginForm, setIsLoginForm] = useState(true);
     const [error, setError] = useState("");
 
@@ -35,27 +36,27 @@ export default function Login() {
         e.preventDefault();
         try {
 
+            if (!email || !password) {
+                setError("Email and Password are required");
+                return;
+            }
             saveUser({
                 id:  "12345",
                 firstName: firstName || "John",
                 lastName: lastName || "Doe",
                 email:  email || "johndoe_signin@gmail.com",
             })
-
-            // if (!email || !password) {
-            //     setError("Email and Password are required");
-            //     return;
-            // }
             // const response = await axios.post("/api/login", {
             //     email,
-            //     password
+            //     password,
+            
             // });
             // if (response.status === 200) {
             //     console.log("Login successful", response.data);
                 
-                // saveUser(response.data);
+            //     saveUser(response.data);
 
-                router.push("/");
+            //     router.push("/");
             // }
             
         } catch (err) {
@@ -72,15 +73,16 @@ export default function Login() {
                 lastName: lastName || "Doe",
                 email:  email || "johndoe_signup@gmail.com"
             })
-            // if (!firstName || !lastName || !email || !password) {
-            //     setError("All fields are required");
-            //     return;
-            // }
+            if (!firstName || !lastName || !email || !password) {
+                setError("All fields are required");
+                return;
+            }
             // const response = await axios.post("/api/signup", {
             //     firstName,
             //     lastName,
             //     email,
-            //     password
+            //     password,
+            //     confirmPassword
             // });
             // if (response.status === 200) {
             //     console.log("SignUp successful", response.data);
@@ -88,8 +90,9 @@ export default function Login() {
                 
             //     saveUser(response.data);
 
-                router.push("/");
-            }
+            //     router.push("/");
+            // }
+        }
           catch (err) {
             setError(err.message);
           }
@@ -97,24 +100,24 @@ export default function Login() {
 
     return (
         <div
-          className="flex flex-col "
+          className="flex flex-col  w-1/2 mx-auto p-5 bg-gray-800 rounded-md shadow-lg"
         >
           <h1
-            className="text-center text-4xl font-bold text-white mt-10 mb-5"
+            className="text-center text-4xl font-bold text-white mb-5"
             >{isLoginForm ? "SignIn" : "SignUp"}</h1>
           <form
-            className="flex flex-col items-center"
+            className="flex flex-col items-center bg-gray-700 p-5 rounded-md shadow-md "
             >
             { !isLoginForm && <>
                 <input
-                  className="border border-gray-300 rounded-md p-2 mb-2 w-1/4"
+                  className="border border-gray-300 rounded-md p-2 mb-2 w-2/3"
                   placeholder="First Name" required
                   type="text"
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                 />
                 <input
-                  className="border border-gray-300 rounded-md p-2 mb-2 w-1/4"
+                  className="border border-gray-300 rounded-md p-2 mb-2 w-2/3"
                   placeholder="Last Name" required
                   type="text"
                   value={lastName}
@@ -123,7 +126,7 @@ export default function Login() {
               </>
             }
             <input
-              className="border border-gray-300 rounded-md p-2 mb-2 w-1/4"
+              className="border border-gray-300 rounded-md p-2 mb-2 w-2/3"
               placeholder="Email" required autoFocus
               autoComplete="email"
               type="email"
@@ -131,15 +134,27 @@ export default function Login() {
               onChange={(e) => setEmail(e.target.value)}
             />
             <input
-              className="border border-gray-300 rounded-md p-2 mb-2 w-1/4"
+              className="border border-gray-300 rounded-md p-2 mb-2 w-2/3"
               placeholder="Password"  required
               autoComplete="current-password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              showpasswordtoggle= "true"
             />
+            { !isLoginForm && 
+              <input
+                className="border border-gray-300 rounded-md p-2 mb-2 w-2/3"
+                placeholder="Confirm Password" required
+                autoComplete="current-password"
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                showpasswordtoggle= "true"
+              />
+            }
             <button
-              className="bg-blue-500 text-white p-2 rounded-md w-1/4 hover:bg-blue-600 transition-colors cursor-pointer"
+              className="bg-blue-500 text-white p-2 rounded-md w-2/3 hover:bg-blue-600 transition-colors cursor-pointer"
               type="submit"
               onClick={isLoginForm ? handleSignIn : handleSignUp}
               >{isLoginForm ? "SignIn" : "SignUp"}</button>

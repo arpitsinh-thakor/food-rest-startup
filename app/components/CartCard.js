@@ -62,6 +62,15 @@ const CartCard = ({ product, onRemove }) => {
               onChange={(e) => {
                 const val = parseInt(e.target.value);
                 onChangeQuantity(val);
+                toast.success(`${productName} quantity updated to ${val}!`, {
+                  position: "top-center",
+                  autoClose: 1500,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                });
               }}
               className="border-b-black box-border border-2 text-gray-500 rounded px-1 py-1 text-sm"
             >
