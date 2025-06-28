@@ -1,4 +1,10 @@
 import img from "../assests/product _img.jpg";
+import img1 from "../assests/carousel_images/Food_collectionbanner1.jpg";
+import img2 from "../assests/carousel_images/Food_collectionbanner2.jpg";
+import img3 from "../assests/carousel_images/Food_collectionbanner3.jpg";
+import img4 from "../assests/carousel_images/Food_collectionbanner4.jpg";
+import img5 from "../assests/carousel_images/Food_collectionbanner5.jpg";
+import img6 from "../assests/carousel_images/Food_collectionbanner6.jpg";
 
 
 export const feedData = [
@@ -131,5 +137,39 @@ export const feedData = [
     weight: 1000,
     selfLife: 365,
     discountPercent: 15,
+  },
+];
+
+
+export const carouselData = [
+  {
+    id: 1,
+    image: img1,
+    alt: "Food Collection Banner 1",
+  },
+  {
+    id: 2,
+    image: img2,
+    alt: "Food Collection Banner 2",
+  },
+  {
+    id: 3,
+    image: img3,
+    alt: "Food Collection Banner 3",
+  },
+  {
+    id: 4,
+    image: img4,
+    alt: "Food Collection Banner 4",
+  },
+  {
+    id: 5,
+    image: img5,
+    alt: "Food Collection Banner 5",
+  },
+  {
+    id: 6,
+    image: img6,
+    alt: "Food Collection Banner 6",
   },
 ];

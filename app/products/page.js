@@ -8,7 +8,7 @@ const {feedData} =  require("../utils/constants");
 const Products = () => {
   return (
     <div>
-        <div className="container mx-auto p-4">
+        <div className="container mx-auto p-4 bg-amber-200">
             <div>
             <h1 className="text-2xl font-bold mb-4">Products</h1>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">

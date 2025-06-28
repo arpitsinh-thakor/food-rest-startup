@@ -29,10 +29,19 @@ const ProductCard = ({ product }) => {
 
   return (
     <div
-      className="bg-sky-200 shadow-md rounded-xl p-2 flex flex-col w-full max-w-sm
-                 hover:shadow-lg cursor-pointer hover:bg-sky-300 transform hover:scale-105
-                 transition-transform duration-200"
-    >
+  className="bg-white rounded-xl p-1 flex flex-col w-full max-w-sm
+              border-2 border-transparent
+             hover:cursor-pointer 
+             hover:border-2 hover:border-red-500
+             hover:bg-white
+             transition-all duration-300
+             hover:shadow-red-700
+              hover:shadow-lg
+             shadow-sm shadow-gray-300
+  "
+>
+
+
 
       <div
         className="relative w-full h-48 md:h-52 lg:h-60 group"
@@ -122,7 +131,15 @@ const ProductCard = ({ product }) => {
                       setQuantity(quantity + 1);
                       dispatch(addItemToCart({ ...product, quantity: 1,}));
                     }else{
-                        alert("Cannot add more than available stock");
+                        toast.error(`Maximum availabe quantity reached for ${productName}`, {
+                          position: "top-center",
+                          autoClose: 1500,
+                          hideProgressBar: false,
+                          closeOnClick: true,
+                          pauseOnHover: true,
+                          draggable: true,
+                          progress: undefined,
+                        });
                     }
                   }}
                 >
