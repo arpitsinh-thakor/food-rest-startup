@@ -13,34 +13,57 @@ const OrderSummaryCard = ({
   onPlaceOrder = () => {},
 }) => {
   const [addressLine, setAddressLine] = useState(address);
+  const [couponCode, setCouponCode] = useState('');
+  const [discount, setDiscount] = useState(0);
+  const [couponError, setCouponError] = useState('');
 
   const totalAmount = useSelector(selectCartSubtotal);
-  const taxAmount = totalAmount * taxRate;
-  const finalTotal = totalAmount + taxAmount + shippingFee;
+  
+  const discountAmount = (totalAmount * discount) / 100;
+  const discountedPrice = totalAmount - discountAmount;
+  const taxAmount = discountedPrice * taxRate;
+  const finalTotal = discountedPrice + taxAmount + shippingFee;
 
-  const fixedPrice = (price) => {
-    return price.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-  };
+
+  const fixedPrice = (price) =>
+    price.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
 
   const onChangeAddressHandler = () => {
-    const newAddress = prompt("Enter new address:", addressLine);
-    if (newAddress && newAddress.trim() !== "") {
+    const newAddress = prompt('Enter new address:', addressLine);
+    if (newAddress && newAddress.trim() !== '') {
       setAddressLine(newAddress);
       onChangeAddress(newAddress);
     }
   };
 
+  const applyCoupon = () => {
+    const code = couponCode.trim().toUpperCase();
+    setCouponError('');
+    switch (code) {
+      case 'SAVE10':
+        setDiscount(10);
+        break;
+      case 'FLAT50':
+        setDiscount(50);
+        break;
+      default:
+        setDiscount(0);
+        setCouponError('Invalid coupon code');
+        break;
+    }
+  };
+
   return (
-    <div className="bg-gray-100 p-6 rounded shadow-md w-full max-w-sm">
+    <div className="bg-white p-6 rounded shadow-md w-full max-w-sm">
       <h2 className="text-2xl font-semibold text-gray-800 mb-4">Order Summary</h2>
 
-      {/* Delivery Address */}
-      <div className="border-t border-gray-300 py-4">
+      {/* Address Section */}
+      <div className="border-t border-gray-300 py-2">
         <div className="flex justify-between items-center mb-2">
           <span className="text-sm font-semibold text-gray-700">DELIVERY ADDRESS</span>
           <button
             onClick={onChangeAddressHandler}
-            className="text-green-500 text-sm font-medium hover:underline"
+            className="text-green-500 text-sm font-medium hover:underline cursor-pointer"
           >
             Change
           </button>
@@ -48,13 +71,13 @@ const OrderSummaryCard = ({
         <p className="text-sm text-gray-600">{addressLine}</p>
       </div>
 
-      {/* Payment Method */}
-      <div className="border-t border-gray-300 py-4">
+      {/* Payment Section */}
+      <div className="border-t border-gray-300 py-1 pb-2">
         <span className="text-sm font-semibold text-gray-700">PAYMENT METHOD</span>
         <select
           value={paymentMethod}
           onChange={(e) => onPaymentChange(e.target.value)}
-          className="mt-2 w-full px-3 py-2 border rounded focus:outline-none text-sm bg-gray-100 text-gray-800"
+          className="bg-white mt-2 w-full px-3 py-2 border rounded focus:outline-none text-sm  text-gray-800"
         >
           <option>Cash On Delivery</option>
           <option>UPI</option>
@@ -63,20 +86,56 @@ const OrderSummaryCard = ({
         </select>
       </div>
 
-      {/* Pricing Details */}
-      <div className="border-t border-gray-300 py-4 space-y-2 text-sm">
+      {/* Coupon Section */}
+      <div className="border-t border-gray-300 py-2">
+        <label className="text-sm font-semibold text-gray-700 block mb-2">COUPON CODE</label>
+        <div className="flex gap-2">
+          <input
+            type="text"
+            value={couponCode}
+            onChange={(e) => setCouponCode(e.target.value)}
+            placeholder="Enter coupon"
+            className="flex-grow px-3 py-2 border rounded text-sm bg-white"
+          />
+          <button
+            onClick={applyCoupon}
+            className="px-4 py-2 bg-green-500 text-white rounded text-sm hover:bg-green-600 cursor-pointer"
+          >
+            Apply
+          </button>
+        </div>
+        {couponError && (
+          <p className="text-red-500 text-xs mt-1">{couponError}</p>
+        )}
+        {discount > 0 && (
+          <p className="text-green-600 text-xs mt-1">
+            Coupon applied: {discount}% off
+          </p>
+        )}
+      </div>
+
+      {/* Price Breakdown */}
+      <div className="border-t border-gray-300 py-2 space-y-1 text-sm">
         <div className="flex justify-between">
           <span className="text-gray-600">Price</span>
           <span className="text-gray-800 font-medium">₹{fixedPrice(totalAmount)}</span>
         </div>
+        {discount > 0 && (
+          <div className="flex justify-between text-green-600">
+            <span>Discount ({discount}%)</span>
+            <span>- ₹{fixedPrice(discountAmount)}</span>
+          </div>
+        )}
         <div className="flex justify-between">
           <span className="text-gray-600">Shipping Fee</span>
-          <span className="text-green-600 font-medium">{shippingFee === 0 ? 'Free' : `₹${shippingFee}`}</span>
+          <span className=" font-medium">
+            <span className="">+ </span>
+            {shippingFee === 0 ? 'Free' : `₹${shippingFee}`}
+          </span>
         </div>
         <div className="flex justify-between">
-          <span className="text-gray-600">Tax ({
-            (taxRate * 100).toFixed(0)}%)</span>
-          <span className="text-gray-800 font-medium">₹{taxAmount.toFixed(2)}</span>
+          <span className="text-gray-600">Tax ({(taxRate * 100).toFixed(0)}%)</span>
+          <span className="text-gray-800 font-medium">+ ₹{taxAmount.toFixed(2)}</span>
         </div>
         <div className="border-t text-black border-gray-300 pt-2 flex justify-between text-lg font-semibold">
           <span>Total Amount:</span>
@@ -84,10 +143,9 @@ const OrderSummaryCard = ({
         </div>
       </div>
 
-      {/* Place Order Button */}
       <button
         onClick={onPlaceOrder}
-        className="w-full mt-4 bg-green-500 hover:bg-green-600 text-white font-semibold py-3 rounded"
+        className="w-full mt-2 bg-green-500 hover:bg-green-600 text-white font-semibold py-3 rounded hover:cursor-pointer transition  "
       >
         Place Order
       </button>

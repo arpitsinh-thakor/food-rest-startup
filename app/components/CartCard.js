@@ -44,7 +44,7 @@ const CartCard = ({ product, onRemove }) => {
       {/* Product Details */}
       <div className="col-span-7 flex items-center space-x-4  ">
         <Image src={productImage} alt={productName} width={64} height={64} className="rounded border" />
-        <div>
+        <div >
           <p className="font-semibold text-gray-800">{productName}</p>
           <p className="text-sm text-gray-500">Weight: {weight}</p>
           <div className="mt-1 flex items-center space-x-2">
@@ -52,7 +52,7 @@ const CartCard = ({ product, onRemove }) => {
             
             <div>
               <button
-                className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 transition"
+                className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 transition cursor-pointer"
                 onClick={() => {
                   if (productQuantity > 1) {
                     dispatch(decrementItemQuantity(id));
@@ -64,7 +64,7 @@ const CartCard = ({ product, onRemove }) => {
               </button>
               <span className="mx-2 font-semibold">{productQuantity}</span>
               <button
-                className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 transition"
+                className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 transition cursor-pointer"
                 onClick={() => {
                  if(productQuantity < maxQuantity) {
                     dispatch(increaseItemQuantity(id));
@@ -97,7 +97,7 @@ const CartCard = ({ product, onRemove }) => {
 
       {/* Remove Button */}
       <div className="col-span-1 flex justify-center border-l-2 border-gray-500  h-full">
-        <button onClick={() => handleRemoveItem(id)} className="text-red-500 hover:text-red-600">
+        <button onClick={() => handleRemoveItem(id)} className="text-red-500 hover:text-red-600 cursor-pointer">
           <XCircle size={28} />
         </button>
       </div>
