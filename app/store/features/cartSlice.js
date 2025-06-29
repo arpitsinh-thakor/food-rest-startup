@@ -140,9 +140,9 @@ export const selectCartLoading = (state) => state.cart.loading;
 
 export const selectCartError = (state) => state.cart.error;
 
-export const selectAvailableQuantity = (state, itemId) => {
+export const selectMaximumQuantity = (state, itemId) => {
   const existingItem = state.cart.items.find((item) => item.id === itemId);
-  return existingItem ? item.quantity : 0;
+  return existingItem ? existingItem.quantity : 0;
 };
 
 export default cartSlice.reducer;

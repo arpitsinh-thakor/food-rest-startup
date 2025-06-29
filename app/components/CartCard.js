@@ -6,14 +6,14 @@ import {toast} from 'react-hot-toast';
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { removeItemFromCart, decrementItemQuantity, increaseItemQuantity } from '../store/features/cartSlice';
-import { selectItemQuantity, selectAvailableQuantity  } from '../store/features/cartSlice';
+import { selectItemQuantity, selectMaximumQuantity  } from '../store/features/cartSlice';
 
 const CartCard = ({ product, onRemove }) => {
   const { id, productName, productImage, price, quantity, weight = 'N/A' } = product;
   const [cartQuantity, setCartQuantity] = useState(quantity);
   const [subtotal, setSubtotal] = useState(price * cartQuantity);
   const quantityFromStore = useSelector((state) => selectItemQuantity(state, id));
-  const maxQuantity = useSelector((state) => selectAvailableQuantity(state, id));
+  const maxQuantity = useSelector((state) => selectMaximumQuantity(state, id));
 
   const dispatch = useDispatch();
   const [productQuantity, setProductQuantity] = useState(quantityFromStore);
