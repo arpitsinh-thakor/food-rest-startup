@@ -14,22 +14,22 @@
                 const existingItemIndex = state.items.findIndex((i) => i.id === item.id);
 
                 if (existingItemIndex >= 0) {
-                    state.items[existingItemIndex].quantity += item.quantity;
+                    state.items[existingItemIndex].cartQuantity += item.cartQuantity;
                 } else {
                     state.items.push({
                         ...item,
-                        quantity: item.quantity || 1, // Ensure quantity is set
+                        cartQuantity: item.cartQuantity || 1, 
                     });
                 }
-                state.totalAmount += item.price * item.quantity;
+                state.totalAmount += item.price * item.cartQuantity;
             },
             decrementItemQuantity(state, action) {
                 const itemId = action.payload;
                 const existingItemIndex = state.items.findIndex((i) => i.id === itemId);
                 if (existingItemIndex >= 0) {
                     const item = state.items[existingItemIndex];
-                    if (item.quantity > 1) {
-                        item.quantity -= 1;
+                    if (item.cartQuantity > 1) {
+                        item.cartQuantity -= 1;
                         state.totalAmount -= item.price;
                     } else {
                         // If quantity is 1, remove the item from the cart
@@ -38,13 +38,22 @@
                     }
                 }
             },
+            increaseItemQuantity(state, action) {
+                const itemId = action.payload;
+                const existingItemIndex = state.items.findIndex((i) => i.id === itemId);
+                if (existingItemIndex >= 0) {
+                    const item = state.items[existingItemIndex];
+                    item.cartQuantity += 1;
+                    state.totalAmount += item.price;
+                }
+            },
             removeItemFromCart(state, action) {
                 const itemId = action.payload;
                 const existingItemIndex = state.items.findIndex((i) => i.id === itemId);
 
                 if (existingItemIndex >= 0) {
                     const item = state.items[existingItemIndex];
-                    state.totalAmount -= item.price * item.quantity;
+                    state.totalAmount -= item.price * item.cartQuantity;
                     state.items.splice(existingItemIndex, 1);
                 }
             },
@@ -53,8 +62,8 @@
                 const existingItemIndex = state.items.findIndex((i) => i.id === itemId);
                 if (existingItemIndex >= 0) {
                     const item = state.items[existingItemIndex];
-                    const oldQuantity = item.quantity;
-                    item.quantity = newQuantity;
+                    const oldQuantity = item.cartQuantity;
+                    item.cartQuantity = newQuantity;
                     state.totalAmount += (newQuantity - oldQuantity) * item.price;
                 }
             },
@@ -74,6 +83,7 @@
     export const {
         addItemToCart,
         decrementItemQuantity,
+        increaseItemQuantity,
         removeItemFromCart,
         changeQuantityInCart,
         clearCart,
@@ -82,17 +92,21 @@
     } = cartSlice.actions;
 
     export const selectCartItems = (state) => state.cart.items;
-    export const selectCartItemCount = (state) => state.cart.items.reduce((total, item) => total + item.quantity, 0);
+    export const selectCartItemCount = (state) => state.cart.items.reduce((total, item) => total + item.cartQuantity, 0);
     export const selectCartTotalItems = (state) => state.cart.items.length;
     export const selectCartTotalAmount = (state) => state.cart.totalAmount;
     export const selectCartSubtotal = (state) => {
-        return state.cart.items.reduce((total, item) => total + item.price * item.quantity, 0);
+        return state.cart.items.reduce((total, item) => total + item.price * item.cartQuantity, 0);
     };
     export const selectItemQuantity = (state, itemId) => {
         const existingItem = state.cart.items.find(item => item.id === itemId);
-        return existingItem ? existingItem.quantity : 0;
+        return existingItem ? existingItem.cartQuantity : 0;
     }
     export const selectCartLoading = (state) => state.cart.loading;
     export const selectCartError = (state) => state.cart.error;
+    export const selectAvailableQuantity = (state, itemId) => {
+        const existingItem = state.cart.items.find(item => item.id === itemId);
+        return existingItem ? existingItem.quantity : 0;
+    }
 
     export default cartSlice.reducer;

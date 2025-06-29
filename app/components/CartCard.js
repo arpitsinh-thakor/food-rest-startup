@@ -5,15 +5,18 @@ import { XCircle } from 'lucide-react';
 import {toast} from 'react-hot-toast';  
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { removeItemFromCart, changeQuantityInCart, decrementItemQuantity } from '../store/features/cartSlice';
-import { selectCartSubtotal, selectItemQuantity  } from '../store/features/cartSlice';
+import { removeItemFromCart, decrementItemQuantity, increaseItemQuantity } from '../store/features/cartSlice';
+import { selectItemQuantity, selectAvailableQuantity  } from '../store/features/cartSlice';
 
 const CartCard = ({ product, onRemove }) => {
   const { id, productName, productImage, price, quantity, weight = 'N/A' } = product;
-  const [subtotal, setSubtotal] = useState(price * quantity);
+  const [cartQuantity, setCartQuantity] = useState(quantity);
+  const [subtotal, setSubtotal] = useState(price * cartQuantity);
   const quantityFromStore = useSelector((state) => selectItemQuantity(state, id));
+  const maxQuantity = useSelector((state) => selectAvailableQuantity(state, id));
 
   const dispatch = useDispatch();
+  const [productQuantity, setProductQuantity] = useState(quantityFromStore);
 
     const handleRemoveItem = (itemId) => {
         dispatch(removeItemFromCart(itemId));
@@ -46,36 +49,43 @@ const CartCard = ({ product, onRemove }) => {
           <p className="text-sm text-gray-500">Weight: {weight}</p>
           <div className="mt-1 flex items-center space-x-2">
             <span className="text-gray-500">Qty:</span>
-            <select
-              value={quantityFromStore}
-              onChange={(e) => {
-                const val = parseInt(e.target.value);
-                onChangeQuantity(val);
-                toast.success(`${productName} quantity updated to ${val}!`, {
-                  position: "top-center",
-                  autoClose: 1500,
-                  hideProgressBar: false,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: undefined,
-                });
-              }}
-              className="border-b-black box-border border-2 text-gray-500 rounded px-1 py-1 text-sm"
-            >
-            {
-                Array.from(
-                { length: 5 },
-                (_, i) => Math.max(1, quantityFromStore - 2) + i
-                )
-                .filter(num => num >= 1)
-                .map(num => (
-                    <option key={num} value={num}>
-                    {num}
-                    </option>
-                ))
-            }
-            </select>
+            
+            <div>
+              <button
+                className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 transition"
+                onClick={() => {
+                  if (productQuantity > 1) {
+                    dispatch(decrementItemQuantity(id));
+                    setProductQuantity(productQuantity - 1);
+                  }
+                }}
+              >
+                −
+              </button>
+              <span className="mx-2 font-semibold">{productQuantity}</span>
+              <button
+                className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 transition"
+                onClick={() => {
+                 if(productQuantity < maxQuantity) {
+                    dispatch(increaseItemQuantity(id));
+                    setProductQuantity(productQuantity + 1);
+                 }
+                 else{
+                    toast.error(`Maximum available quantity reached for ${productName}`, {
+                      position: "top-center",
+                      autoClose: 1500,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                    });
+                 }
+                }}
+              >
+                +
+              </button>
+            </div>
           </div>
         </div>
       </div>

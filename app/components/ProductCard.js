@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import {toast  } from 'react-hot-toast';
 
 import {useSelector, useDispatch}  from 'react-redux';
-import { addItemToCart, decrementItemQuantity, removeItemFromCart } from '../store/features/cartSlice';
+import { addItemToCart, decrementItemQuantity, increaseItemQuantity, removeItemFromCart } from '../store/features/cartSlice';
 
 const ProductCard = ({ product }) => {
   const router = useRouter();
@@ -18,10 +18,11 @@ const ProductCard = ({ product }) => {
     price,
     isNew,
     discountPercent,
+    quantity,
   } = product;
 
   const [addedToCart, setAddedToCart] = useState(false);
-  const [quantity, setQuantity] = useState(1);
+  const [cartQuantity, setCartQuantity] = useState(1);
 
   const discountedPrice = discountPercent
     ? (price / (1 - discountPercent / 100)).toFixed(2)
@@ -105,8 +106,8 @@ const ProductCard = ({ product }) => {
                   className="flex-1 bg-blue-500 text-white py-1 rounded hover:bg-blue-600 transition hover:cursor-pointer"
                   onClick={() =>
                     quantity > 1
-                      ? (dispatch(decrementItemQuantity(id)), setQuantity(quantity - 1)):
-                        dispatch(removeItemFromCart(id), setAddedToCart(false), setQuantity(1),
+                      ? (dispatch(decrementItemQuantity(id)), setCartQuantity(cartQuantity - 1)):
+                        dispatch(removeItemFromCart(id), setAddedToCart(false), setCartQuantity(1),
                         toast.error(`${productName} removed from cart!`, {
                           position: "top-center",
                           autoClose: 1500,
@@ -121,13 +122,13 @@ const ProductCard = ({ product }) => {
                 >
                   −
                 </button>
-                <span className="font-semibold text-gray-800">{quantity}</span>
+                <span className="font-semibold text-gray-800">{cartQuantity}</span>
                 <button
                   className="flex-1 bg-blue-500 text-white py-1 rounded hover:bg-blue-600 transition hover:cursor-pointer"
                   onClick={() => {
-                    if (quantity < product.quantity) {
-                      setQuantity(quantity + 1);
-                      dispatch(addItemToCart({ ...product, quantity: 1,}));
+                    if (cartQuantity < quantity) {
+                      dispatch(increaseItemQuantity(id));
+                      setCartQuantity(cartQuantity + 1);
                     }else{
                         toast.error(`Maximum availabe quantity reached for ${productName}`, {
                           position: "top-center",
@@ -149,7 +150,7 @@ const ProductCard = ({ product }) => {
                 className="w-full bg-green-500 text-white py-1.5 rounded hover:bg-green-600 transition text-sm hover:cursor-pointer"
                 onClick={() => {
                   setAddedToCart(false);
-                  setQuantity(1);
+                  setCartQuantity(1);
                   router.push('/cart');
                 }}
               >
@@ -160,7 +161,7 @@ const ProductCard = ({ product }) => {
             <button
                 className="w-full bg-blue-500 text-white py-1.5 rounded hover:bg-blue-600 transition text-sm hover:cursor-pointer"
                 onClick={() => {
-                  dispatch(addItemToCart({ ...product, quantity }));
+                  dispatch(addItemToCart({ ...product, cartQuantity: 1 }));
                   setAddedToCart(true);
                   toast.success(`${productName} added to cart!`, {
                     position: "top-center",
