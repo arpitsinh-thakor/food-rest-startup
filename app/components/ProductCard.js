@@ -30,7 +30,7 @@ const ProductCard = ({ product }) => {
 
   return (
     <div
-  className="bg-white rounded-xl p-1 flex flex-col w-full max-w-sm
+  className="bg-white rounded-xl p-1 flex flex-col w-5/6 h-100
               border-1 border-transparent
              hover:border-black
              transition-all duration-300
@@ -43,7 +43,8 @@ const ProductCard = ({ product }) => {
 
 
       <div
-        className="relative w-full h-48 md:h-52 lg:h-60 group hover:cursor-pointer"
+        className="relative  h-48 md:h-52 lg:h-60 
+        group hover:cursor-pointer"
         onClick={() => router.push(`/products/${id}`)}
       >
         <Image

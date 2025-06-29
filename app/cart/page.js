@@ -21,7 +21,7 @@ const Cart = () => {
   
   return (
     <div className='bg-gradient-to-r from-[#ff9a56] to-[#ffb366]
-        mx-auto rounded-lg shadow-lg p-1
+        mx-auto  shadow-lg p-1
       '>
         <div className="pt-12 flex  justify-center gap-4 mb-4">
             <div

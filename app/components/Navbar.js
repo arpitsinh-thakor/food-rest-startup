@@ -39,7 +39,7 @@ const Navbar = () => {
 
   return (
 
-    <nav className="bg-gray-900 text-white shadow sticky top-0 z-50 border-b rounded-t-md ">
+    <nav className="bg-gray-900 text-white shadow sticky top-0 z-50  rounded-t-md p-1">
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
         
         {/* Left: Brand + Links */}

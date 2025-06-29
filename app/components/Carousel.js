@@ -8,7 +8,7 @@ const Carousel = () => {
     const images = carouselData;
     
   return (
-    <div className=' flex flex-col w-full '>
+    <div className=' flex flex-col w-14/15 p-2'>
         <div
             className='w-full '
             >
