@@ -1,175 +1,154 @@
-"use client"
-import { useState } from "react";
-import axios from "axios";
-const { useRouter } = require("next/navigation");
+'use client';
 
-import { useSelector, useDispatch } from "react-redux";
-import { setUser } from "../store/features/userSlice";
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useSelector, useDispatch } from 'react-redux';
+import { setUser } from '../store/features/userSlice';
+import axios from 'axios';
 
-export default function Login() {
+export default function AuthForm() {
+  const router = useRouter();
+  const dispatch = useDispatch();
 
-    const router = useRouter();
+  const [isLoginForm, setIsLoginForm] = useState(true);
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
+  });
+  const [error, setError] = useState('');
 
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
-    const [isLoginForm, setIsLoginForm] = useState(true);
-    const [error, setError] = useState("");
+  const handleChange = (e) => {
+    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  };
 
-    const dispatch = useDispatch();
-    const user = useSelector((state) => state.user.user);
+  const saveUser = ({ id, firstName, lastName, email }) => {
+    dispatch(setUser({ id, firstName, lastName, email }));
+  };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const { firstName, lastName, email, password, confirmPassword } = formData;
 
-    const saveUser = ({id, firstName, lastName, email}) => {
-        const user = {
-            id,
-            firstName,
-            lastName,
-            email,
-        };
-        dispatch(setUser(user));
+    if (!email || !password || (!isLoginForm && (!firstName || !lastName || !confirmPassword))) {
+      setError('Please fill all required fields.');
+      return;
     }
 
-    const handleSignIn = async (e) => {
-        e.preventDefault();
-        try {
+    try {
+      if (isLoginForm) {
+        // const res = await axios.post('/api/login', { email, password });
+        // saveUser(res.data);
+        saveUser({
+          id: '12345',
+          firstName: firstName || 'John',
+          lastName: lastName || 'Doe',
+          email: email || 'johndoe_signin@gmail.com',
+        });
 
-            if (!email || !password) {
-                setError("Email and Password are required");
-                return;
-            }
-            saveUser({
-                id:  "12345",
-                firstName: firstName || "John",
-                lastName: lastName || "Doe",
-                email:  email || "johndoe_signin@gmail.com",
-            })
-            // const response = await axios.post("/api/login", {
-            //     email,
-            //     password,
-            
-            // });
-            // if (response.status === 200) {
-            //     console.log("Login successful", response.data);
-                
-            //     saveUser(response.data);
+        router.push('/');
 
-            //     router.push("/");
-            // }
-            
-        } catch (err) {
-            setError(err.message);
-        }
+      } else if (password !== confirmPassword) {
+      } else {
+        // const res = await axios.post('/api/signup', { firstName, lastName, email, password, confirmPassword });
+        // saveUser(res.data);
+        saveUser({
+          id: '12345',
+          firstName,
+          lastName,
+          email,
+        });
+
+        router.push('/');
+      }
+      router.push('/');
+    } catch (err) {
+      setError(err.message || 'Something went wrong.');
     }
-    const handleSignUp = async (e) => {
-        e.preventDefault();
-        try {
+  };
 
-            saveUser({
-                id:  "12345",
-                firstName: firstName || "John",
-                lastName: lastName || "Doe",
-                email:  email || "johndoe_signup@gmail.com"
-            })
-            if (!firstName || !lastName || !email || !password) {
-                setError("All fields are required");
-                return;
-            }
-            // const response = await axios.post("/api/signup", {
-            //     firstName,
-            //     lastName,
-            //     email,
-            //     password,
-            //     confirmPassword
-            // });
-            // if (response.status === 200) {
-            //     console.log("SignUp successful", response.data);
-            //     // Dispatch login action to Redux store
-                
-            //     saveUser(response.data);
-
-            //     router.push("/");
-            // }
-        }
-          catch (err) {
-            setError(err.message);
-          }
-    }
-
-    return (
-        <div
-          className="flex flex-col  w-1/2 mx-auto p-5 bg-gray-800 rounded-md shadow-lg"
+  return (
+    <div className="max-w-md mx-auto bg-gray-800 p-6 rounded-xl shadow-lg">
+      <h1 className="text-3xl font-bold text-center mb-6 text-white">
+        {isLoginForm ? 'Sign In' : 'Sign Up'}
+      </h1>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        {!isLoginForm && (
+          <>
+            <input
+              type="text"
+              name="firstName"
+              placeholder="First Name"
+              value={formData.firstName}
+              onChange={handleChange}
+              required
+              className="w-full px-4 py-2 border rounded-md bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+            <input
+              type="text"
+              name="lastName"
+              placeholder="Last Name"
+              value={formData.lastName}
+              onChange={handleChange}
+              required
+              className="w-full px-4 py-2 border rounded-md bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+          </>
+        )}
+        <input
+          type="email"
+          name="email"
+          placeholder="Email Address"
+          value={formData.email}
+          onChange={handleChange}
+          autoComplete="email"
+          required
+          className="w-full px-4 py-2 border rounded-md bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-400"
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={formData.password}
+          onChange={handleChange}
+          autoComplete="current-password"
+          required
+          className="w-full px-4 py-2 border rounded-md bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-400"
+        />
+        {!isLoginForm && (
+          <input
+            type="password"
+            name="confirmPassword"
+            placeholder="Confirm Password"
+            value={formData.confirmPassword}
+            onChange={handleChange}
+            required
+            className="w-full px-4 py-2 border rounded-md bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          />
+        )}
+        {error && (
+          <div className="text-red-500 text-sm text-center">
+            ⚠️ {error}
+          </div>
+        )}
+        <button
+          type="submit"
+          className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-all duration-200"
         >
-          <h1
-            className="text-center text-4xl font-bold text-white mb-5"
-            >{isLoginForm ? "SignIn" : "SignUp"}</h1>
-          <form
-            className="flex flex-col items-center bg-gray-700 p-5 rounded-md shadow-md "
-            >
-            { !isLoginForm && <>
-                <input
-                  className="border border-gray-300 rounded-md p-2 mb-2 w-2/3"
-                  placeholder="First Name" required
-                  type="text"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                />
-                <input
-                  className="border border-gray-300 rounded-md p-2 mb-2 w-2/3"
-                  placeholder="Last Name" required
-                  type="text"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                />
-              </>
-            }
-            <input
-              className="border border-gray-300 rounded-md p-2 mb-2 w-2/3"
-              placeholder="Email" required autoFocus
-              autoComplete="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <input
-              className="border border-gray-300 rounded-md p-2 mb-2 w-2/3"
-              placeholder="Password"  required
-              autoComplete="current-password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              showpasswordtoggle= "true"
-            />
-            { !isLoginForm && 
-              <input
-                className="border border-gray-300 rounded-md p-2 mb-2 w-2/3"
-                placeholder="Confirm Password" required
-                autoComplete="current-password"
-                type="password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                showpasswordtoggle= "true"
-              />
-            }
-            <button
-              className="bg-blue-500 text-white p-2 rounded-md w-2/3 hover:bg-blue-600 transition-colors cursor-pointer"
-              type="submit"
-              onClick={isLoginForm ? handleSignIn : handleSignUp}
-              >{isLoginForm ? "SignIn" : "SignUp"}</button>
-
-            <p
-              className="text-blue-500 mt-2 cursor-pointer"
-              onClick={() => setIsLoginForm(!isLoginForm)}
-              >{isLoginForm ? "Don't have an account." : "Already have an account?"}
-              </p>
-            
-            {error && <div
-              className="text-red-500 mt-2"
-              > Error - {error}</div>
-            }
-          </form>
-        </div>
-    );
+          {isLoginForm ? 'Sign In' : 'Sign Up'}
+        </button>
+        <p
+          className="text-sm text-center text-blue-500 hover:underline cursor-pointer"
+          onClick={() => {
+            setIsLoginForm(!isLoginForm);
+            setError('');
+          }}
+        >
+          {isLoginForm ? "Don't have an account? Sign Up" : 'Already have an account? Sign In'}
+        </p>
+      </form>
+    </div>
+  );
 }

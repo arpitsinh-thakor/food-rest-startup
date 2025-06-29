@@ -20,7 +20,9 @@ const Cart = () => {
   }
   
   return (
-    <div>
+    <div
+      className="flex-1 flex flex-col items-center justify-center bg-[#ff9a56] container mx-auto rounded-lg shadow-lg h-screen"
+      >
         <div className="flex items-center justify-center gap-4 mb-4">
             <div
               >
