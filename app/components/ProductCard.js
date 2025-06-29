@@ -105,7 +105,7 @@ const ProductCard = ({ product }) => {
                 <button
                   className="flex-1 bg-blue-500 text-white py-1 rounded hover:bg-blue-600 transition hover:cursor-pointer"
                   onClick={() =>
-                    quantity > 1
+                    cartQuantity > 1
                       ? (dispatch(decrementItemQuantity(id)), setCartQuantity(cartQuantity - 1)):
                         dispatch(removeItemFromCart(id), setAddedToCart(false), setCartQuantity(1),
                         toast.error(`${productName} removed from cart!`, {
