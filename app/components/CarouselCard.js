@@ -7,13 +7,12 @@ const CarouselCard = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const total = images.length;
 
-  // 👉 Auto-slide every 1 second
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % total);
-    }, 2000); // 1 second
+    }, 2000); // Auto-slide every 2 seconds
 
-    return () => clearInterval(interval); // Cleanup on unmount
+    return () => clearInterval(interval);
   }, [total]);
 
   const handlePrev = () => {
@@ -24,10 +23,14 @@ const CarouselCard = ({ images }) => {
     setCurrentIndex((prev) => (prev + 1) % total);
   };
 
+  const handleDotClick = (index) => {
+    setCurrentIndex(index);
+  };
+
   return (
-    <div className="relative w-full max-w-xl mx-auto">
+    <div className="relative w-full max-w-xl mx-auto mb-3">
       {/* Image */}
-      <div className="relative p-2 w-full h-40 md:h-48 lg:h-56 overflow-hidden rounded-lg shadow-md bg-white">
+      <div className="relative w-full h-40 md:h-48 lg:h-56 overflow-hidden">
         <Image
           src={images[currentIndex].image}
           alt={images[currentIndex].alt}
@@ -43,7 +46,6 @@ const CarouselCard = ({ images }) => {
       >
         <ChevronLeft className="w-5 h-5" />
       </button>
-
       <button
         onClick={handleNext}
         className="absolute top-1/2 right-3 -translate-y-1/2 z-10 bg-white p-2 rounded-full shadow hover:bg-gray-100 transition"
@@ -51,11 +53,17 @@ const CarouselCard = ({ images }) => {
         <ChevronRight className="w-5 h-5" />
       </button>
 
-      {/* Page Indicator */}
-      <div className="absolute bottom-1 right-3 text-center p-1 text-sm text-gray-600 font-medium
-        bg-white rounded-b-sm shadow-md hover:bg-gray-100 transition"
-        >
-        {currentIndex + 1} / {total}
+      {/* Dots Indicator */}
+      <div className="flex justify-center space-x-2">
+        {images.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => handleDotClick(index)}
+            className={`w-2 h-2 rounded-full ${
+              index === currentIndex ? 'bg-blue-500' : 'bg-gray-200'
+            } transition`}
+          />
+        ))}
       </div>
     </div>
   );

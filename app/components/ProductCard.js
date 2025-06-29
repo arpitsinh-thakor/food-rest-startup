@@ -30,13 +30,12 @@ const ProductCard = ({ product }) => {
   return (
     <div
   className="bg-white rounded-xl p-1 flex flex-col w-full max-w-sm
-              border-2 border-transparent
+              border-1 border-transparent
              hover:cursor-pointer 
-             hover:border-2 hover:border-red-500
-             hover:bg-white
+             hover:border-black
              transition-all duration-300
-             hover:shadow-red-700
-              hover:shadow-lg
+             hover:shadow-black
+              hover:shadow-md
              shadow-sm shadow-gray-300
   "
 >
@@ -82,9 +81,9 @@ const ProductCard = ({ product }) => {
       </h2>
 
       {/* Price + Cart in a horizontal layout */}
-      <div className="flex items-start justify-between gap-3 px-2 py-2 bg-sky-100 rounded-lg shadow-sm">
+      <div className="flex items-start justify-between gap-3 px-2 py-2 bg-gray-100 rounded-lg ">
         {/* Price */}
-        <div className="flex flex-col">
+        <div className="flex flex-col"> 
           <p className="text-gray-700 text-sm">Price:</p>
           {discountPercent ? (
             <>
@@ -150,9 +149,9 @@ const ProductCard = ({ product }) => {
               <button
                 className="w-full bg-green-500 text-white py-1.5 rounded hover:bg-green-600 transition text-sm"
                 onClick={() => {
-                  alert(`Buying ${quantity} × ${productName}`);
                   setAddedToCart(false);
                   setQuantity(1);
+                  router.push('/cart');
                 }}
               >
                 Buy Now

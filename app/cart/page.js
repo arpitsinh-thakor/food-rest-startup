@@ -20,13 +20,14 @@ const Cart = () => {
   }
   
   return (
-    <div
-      className="flex-1 flex flex-col items-center justify-center bg-[#ff9a56] container mx-auto rounded-lg shadow-lg h-screen"
-      >
-        <div className="flex items-center justify-center gap-4 mb-4">
+    <div className='bg-gradient-to-r from-orange-400 to-yellow-400
+        mx-auto rounded-lg shadow-lg p-1
+      '>
+        <div className="flex  justify-center gap-4 mb-4">
             <div
               >
-                <div className="grid grid-cols-10 bg-gray-100 text-gray-700 font-semibold px-4 py-2 rounded shadow mb-1">
+                <div className="grid grid-cols-10 bg-gray-100 text-gray-700 font-semibold px-4 py-2 rounded shadow mb-1
+                  ">
                   <div className="col-span-7">Product Details</div>
                   <div className="col-span-2 text-center">Subtotal</div>
                   <div className="col-span-1 text-center">Action</div>
@@ -40,7 +41,9 @@ const Cart = () => {
                     ))}
                 </ul>
             </div>
-            <div>
+            <div
+              className="hidden lg:block sticky top-0 pt-12 h-screen overflow-y-auto"
+              >
               <OrderSummaryCard
                 address="123 Main St, Ahmedabad"
                 paymentMethod="Cash On Delivery"

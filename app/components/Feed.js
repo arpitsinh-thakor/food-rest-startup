@@ -7,7 +7,7 @@ const {feedData} =  require("../utils/constants");
 const Feed = () => {
   return (
     // bg-[#ff9a56]
-    <div className=" container mx-auto p-4 ">
+    <div className="">
         <div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {

@@ -138,6 +138,56 @@ export const feedData = [
     selfLife: 365,
     discountPercent: 15,
   },
+  {
+    id: 11,
+    productName: "Italian Balsamic Vinegar",
+    productImage: img,
+    price: "8.99",
+    description:
+      "Aged balsamic vinegar from Modena, Italy. Rich, sweet flavor perfect for salads, marinades, and glazes.",
+    category: "Condiments",
+    quantity: 120,
+    weight: 250,
+    selfLife: 730,
+    isNew: true,
+  },
+  {
+    id: 12,
+    productName: "Spanish Chorizo Sausage",
+    productImage: img,
+    price: "10.50",
+    description:
+      "Spicy and smoky Spanish chorizo sausage made with premium pork. Ideal for tapas or as a pizza topping.",
+    category: "Meat",
+    quantity: 70,
+    weight: 200,
+    selfLife: 30,
+  },
+  {
+    id: 13,
+    productName: "Belgian Dark Chocolate Bar",
+    productImage: img,
+    price: "4.99",
+    description:
+      "Rich and smooth dark chocolate bar made with 70% cocoa. Perfect for snacking or baking.",
+    category: "Snacks",
+    quantity: 150,
+    weight: 100,
+    selfLife: 180,
+    isNew: true,
+  },
+  {
+    id: 14,
+    productName: "Organic Almond Butter",
+    productImage: img,
+    price: "7.50",
+    description:
+      "Creamy almond butter made from organic almonds. No added sugar or preservatives, perfect for spreads.",
+    category: "Condiments",
+    quantity: 80,
+    weight: 250,
+    selfLife: 365,
+  },
 ];
 
 
