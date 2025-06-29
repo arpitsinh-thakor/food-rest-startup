@@ -5,6 +5,9 @@ import { useSelector } from "react-redux";
 import { selectIsAuthenticated, selectUserFirstName } from "../store/features/userSlice";
 import { UserCircle } from "lucide-react";
 import { useState, useRef } from "react";
+import { useDispatch } from "react-redux";
+import {toast} from 'react-hot-toast';
+import { logout } from "../store/features/userSlice"; // Assuming you have a logout action
 
 const Navbar = () => {
   const isAuthenticated = useSelector(selectIsAuthenticated);
@@ -12,6 +15,8 @@ const Navbar = () => {
   const greeting = isAuthenticated ? `Hello, ${userFirstName}` : "Welcome, Guest";
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const timeoutRef = useRef(null);
+
+  const dispatch = useDispatch();
 
   const handleMouseEnter = () => {
     clearTimeout(timeoutRef.current);
@@ -24,7 +29,16 @@ const Navbar = () => {
     }, 1000); 
   };
 
+  const handleLogout = (e) => {
+    e.preventDefault();
+    localStorage.removeItem("token");
+    dispatch(logout()); 
+    setDropdownOpen(false); 
+    toast.success("Logged out successfully!");
+  };
+
   return (
+
     <nav className="bg-gray-900 text-white shadow sticky top-0 z-50 border-b rounded-t-md ">
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
         
@@ -66,7 +80,12 @@ const Navbar = () => {
                 <div className="absolute right-0 mt-2 w-25 bg-white text-gray-900 rounded shadow-lg z-50">
                   <Link href="/profile" className="block px-4 py-2 hover:bg-blue-200">Profile</Link>
                   <Link href="/orders" className="block px-4 py-2 hover:bg-green-100">Orders</Link>
-                  <Link href="/logout" className="block px-4 py-2 text-red-600 hover:bg-red-100">Logout</Link>
+                  <button
+                    onClick={handleLogout}
+                    className="block w-full text-left px-4 py-2 hover:bg-red-100 text-red-600"
+                  >
+                    Logout
+                  </button>
                 </div>
               )}
             </div>

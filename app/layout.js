@@ -29,7 +29,7 @@ export default function RootLayout({ children }) {
             <Navbar />
 
             <Toaster
-              position="top-right"
+              position="top-center"
               reverseOrder={false}
               toastOptions={{
                 className: 'bg-gray-800 text-white',
