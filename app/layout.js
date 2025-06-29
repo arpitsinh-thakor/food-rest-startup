@@ -19,7 +19,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <body className="font-sans text-gray-900">
+      <body className="font-sans text-gray-900 min-h-screen">
         <Providers>
           {/* Full height flex container */}
           <div className="flex flex-col min-h-screen
@@ -45,7 +45,7 @@ export default function RootLayout({ children }) {
               {children}
             </main>
               
-            {/* <Footer /> */}
+            <Footer />
           </div>
         </Providers>
       </body>
