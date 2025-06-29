@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useSelector, useDispatch } from 'react-redux';
 import { setUser } from '../store/features/userSlice';
 import axios from 'axios';
+import {toast} from 'react-hot-toast';
 
 export default function AuthForm() {
   const router = useRouter();
@@ -24,8 +25,17 @@ export default function AuthForm() {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const saveUser = ({ id, firstName, lastName, email }) => {
-    dispatch(setUser({ id, firstName, lastName, email }));
+  const saveUser = (user) => {
+    dispatch(setUser((user)));
+    // setFormData({
+    //   firstName: '',
+    //   lastName: '',
+    //   email: '',
+    //   password: '',
+    //   confirmPassword: ''
+    // });
+    // setError('');
+    setIsLoginForm(true);
   };
 
   const handleSubmit = async (e) => {
@@ -39,31 +49,32 @@ export default function AuthForm() {
 
     try {
       if (isLoginForm) {
-        // const res = await axios.post('/api/login', { email, password });
-        // saveUser(res.data);
-        saveUser({
-          id: '12345',
-          firstName: firstName || 'John',
-          lastName: lastName || 'Doe',
-          email: email || 'johndoe_signin@gmail.com',
-        });
+        const res = await axios.post(process.env.NEXT_PUBLIC_BACKEND_URL +'/auth/login', { email, password });
+        if (res.status === 200) {
+          saveUser(res.data.user);
+          localStorage.setItem('token', res.data.token || ''); 
+          toast.success('Logged in successfully!');
+          router.push('/'); 
 
-        router.push('/');
+
+        } else {
+          setError('Invalid email or password.');
+        }
 
       } else if (password !== confirmPassword) {
+        setError('Passwords do not match.');
+        return;
       } else {
-        // const res = await axios.post('/api/signup', { firstName, lastName, email, password, confirmPassword });
-        // saveUser(res.data);
-        saveUser({
-          id: '12345',
-          firstName,
-          lastName,
-          email,
-        });
 
-        router.push('/');
+        const res = await axios.post(process.env.NEXT_PUBLIC_BACKEND_URL  + '/auth/signup', { firstName, lastName, email, password, confirmPassword });
+        if(res.status === 201) {
+          saveUser(res.data);
+          toast.success('Account created successfully!');
+        }
+        else {
+          setError('Failed to create account. Please try again.');
+        }
       }
-      router.push('/');
     } catch (err) {
       setError(err.message || 'Something went wrong.');
     }
@@ -73,6 +84,7 @@ export default function AuthForm() {
     <div className="max-w-md mx-auto bg-gray-800 p-6 rounded-xl shadow-lg">
       <h1 className="text-3xl font-bold text-center mb-6 text-white">
         {isLoginForm ? 'Sign In' : 'Sign Up'}
+        <div>{}</div>
       </h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         {!isLoginForm && (
