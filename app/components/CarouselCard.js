@@ -28,33 +28,33 @@ const CarouselCard = ({ images }) => {
   };
 
   return (
-    <div className="relative w-full max-w-xl mx-auto mb-3">
+    <div className="relative w-full mx-auto mb-3 mt-5">
       {/* Image */}
-      <div className="relative w-full h-40 md:h-48 lg:h-56 overflow-hidden">
-        <Image
+      <div className="relative  h-40 md:h-48 lg:h-56 overflow-hidden">
+       <Image
           src={images[currentIndex].image}
           alt={images[currentIndex].alt}
           fill
-          className="object-contain p-2"
+          className='object-fill w-full h-full transition-transform duration-500 ease-in-out rounded-lg'
         />
       </div>
 
       {/* Navigation Buttons */}
       <button
         onClick={handlePrev}
-        className="absolute top-1/2 left-3 -translate-y-1/2 z-10 bg-white p-2 rounded-full shadow hover:bg-gray-100 transition"
+        className="absolute top-1/2 left-3 -translate-y-1/2 z-10 bg-white p-2 rounded-full shadow hover:bg-gray-100 transition cursor-pointer"
       >
         <ChevronLeft className="w-5 h-5" />
       </button>
       <button
         onClick={handleNext}
-        className="absolute top-1/2 right-3 -translate-y-1/2 z-10 bg-white p-2 rounded-full shadow hover:bg-gray-100 transition"
+        className="absolute  top-1/2 right-3 -translate-y-1/2 z-10 bg-white p-2 rounded-full shadow hover:bg-gray-100 transition cursor-pointer"
       >
         <ChevronRight className="w-5 h-5" />
       </button>
 
       {/* Dots Indicator */}
-      <div className="flex justify-center space-x-2">
+      <div className="flex justify-center space-x-2 mt-2">
         {images.map((_, index) => (
           <button
             key={index}

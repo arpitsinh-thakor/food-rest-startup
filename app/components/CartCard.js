@@ -15,17 +15,6 @@ const CartCard = ({ product, onRemove }) => {
 
   const dispatch = useDispatch();
 
-    const onChangeQuantity = (newQuantity) => {
-        if (newQuantity < 1) {
-            dispatch(removeItemFromCart(id));
-        } else {
-            dispatch(changeQuantityInCart({ itemId: id, newQuantity }));
-        }
-        // Update subtotal based on new quantity
-        setSubtotal(price * newQuantity);
-
-    }
-
     const handleRemoveItem = (itemId) => {
         dispatch(removeItemFromCart(itemId));
         toast.error(`${productName} removed from cart!`, {

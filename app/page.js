@@ -7,8 +7,8 @@ export default function Home() {
     <div  className="flex flex-col gap-5 h-screen ">
       <div
         className="flex flex-col items-center justify-center 
-        bg-gradient-to-r from-orange-400 to-yellow-400
-          mx-auto rounded-lg shadow-lg p-1"
+        bg-gradient-to-r from-[#ff9a56] to-[#ffb366]
+          mx-auto shadow-lg p-1"
       >
         <Carousel />
         <Feed />

@@ -1,32 +1,23 @@
-import React from 'react'
-
 const Footer = () => {
   return (
-    <div 
-      className="bg-gray-800 text-white py-4 mt-auto"
-      style={{ position: 'relative', bottom: 0, width: '100%' }}      
-        >
-      <div className="container mx-auto text-center">
+    <footer className="bg-gray-800 text-white py-6 w-full">
+      <div className="max-w-6xl mx-auto px-4 text-center">
         <p className="text-sm">
           &copy; 2025 Food Rest Startup. All rights reserved.
         </p>
+        <p className="text-xs mt-2">
+          Follow us on{' '}
+          <a href="https://instagram.com" className="text-blue-400 hover:underline">
+            Instagram
+          </a>{' '}
+          and{' '}
+          <a href="https://facebook.com" className="text-blue-400 hover:underline">
+            Facebook
+          </a>
+        </p>
       </div>
-        <div className="container mx-auto text-center mt-4">
-            <p className="text-xs">
-            Follow us on{' '}
-            <a href="https://instagram.com" className="text-blue-400 hover:underline">
-                Instagram
-            </a>{' '}
-            and{' '}
-            <a href="https://facebook.com" className="text-blue-400 hover:underline">
-                Facebook
-            </a>
-            </p>
-        </div>
-    </div>
-            
+    </footer>
+  );
+};
 
-  )
-}
-
-export default Footer
+export default Footer;

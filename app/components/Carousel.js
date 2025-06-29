@@ -8,8 +8,9 @@ const Carousel = () => {
     const images = carouselData;
     
   return (
-    <div className='container mx-auto flex flex-col '>
+    <div className=' flex flex-col w-full '>
         <div
+            className='w-full '
             >
             <CarouselCard images={images} />
         </div>

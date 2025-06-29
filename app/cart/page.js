@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { useState } from 'react'
 
 import { useSelector } from 'react-redux';
 import { selectCartItems } from '../store/features/cartSlice';
@@ -12,7 +12,7 @@ const Cart = () => {
  
   if (cartItems.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center h-screen">
+      <div className="bg-gradient-to-r from-[#ff9a56] to-[#ffb366] flex flex-col items-center justify-center h-screen">
         <div className="text-2xl font-bold mb-4">Cart Page</div>
         <div className="text-lg">Your cart is currently empty.</div>
       </div>
@@ -20,10 +20,10 @@ const Cart = () => {
   }
   
   return (
-    <div className='bg-gradient-to-r from-orange-400 to-yellow-400
+    <div className='bg-gradient-to-r from-[#ff9a56] to-[#ffb366]
         mx-auto rounded-lg shadow-lg p-1
       '>
-        <div className="flex  justify-center gap-4 mb-4">
+        <div className="pt-12 flex  justify-center gap-4 mb-4">
             <div
               >
                 <div className="grid grid-cols-10 bg-gray-100 text-gray-700 font-semibold px-4 py-2 rounded shadow mb-1
@@ -42,7 +42,7 @@ const Cart = () => {
                 </ul>
             </div>
             <div
-              className="hidden lg:block sticky top-0 pt-12 h-screen overflow-y-auto"
+              className="hidden lg:block sticky top-10  h-screen overflow-y-auto"
               >
               <OrderSummaryCard
                 address="123 Main St, Ahmedabad"

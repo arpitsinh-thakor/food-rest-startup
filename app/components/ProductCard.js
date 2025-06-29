@@ -31,7 +31,6 @@ const ProductCard = ({ product }) => {
     <div
   className="bg-white rounded-xl p-1 flex flex-col w-full max-w-sm
               border-1 border-transparent
-             hover:cursor-pointer 
              hover:border-black
              transition-all duration-300
              hover:shadow-black
@@ -43,7 +42,7 @@ const ProductCard = ({ product }) => {
 
 
       <div
-        className="relative w-full h-48 md:h-52 lg:h-60 group"
+        className="relative w-full h-48 md:h-52 lg:h-60 group hover:cursor-pointer"
         onClick={() => router.push(`/products/${id}`)}
       >
         <Image
@@ -103,7 +102,7 @@ const ProductCard = ({ product }) => {
             <>
               <div className="flex items-center gap-1.5 w-full">
                 <button
-                  className="flex-1 bg-blue-500 text-white py-1 rounded hover:bg-blue-600 transition"
+                  className="flex-1 bg-blue-500 text-white py-1 rounded hover:bg-blue-600 transition hover:cursor-pointer"
                   onClick={() =>
                     quantity > 1
                       ? (dispatch(decrementItemQuantity(id)), setQuantity(quantity - 1)):
@@ -124,7 +123,7 @@ const ProductCard = ({ product }) => {
                 </button>
                 <span className="font-semibold text-gray-800">{quantity}</span>
                 <button
-                  className="flex-1 bg-blue-500 text-white py-1 rounded hover:bg-blue-600 transition"
+                  className="flex-1 bg-blue-500 text-white py-1 rounded hover:bg-blue-600 transition hover:cursor-pointer"
                   onClick={() => {
                     if (quantity < product.quantity) {
                       setQuantity(quantity + 1);
@@ -147,7 +146,7 @@ const ProductCard = ({ product }) => {
               </div>
 
               <button
-                className="w-full bg-green-500 text-white py-1.5 rounded hover:bg-green-600 transition text-sm"
+                className="w-full bg-green-500 text-white py-1.5 rounded hover:bg-green-600 transition text-sm hover:cursor-pointer"
                 onClick={() => {
                   setAddedToCart(false);
                   setQuantity(1);
@@ -159,7 +158,7 @@ const ProductCard = ({ product }) => {
             </>
           ) : (
             <button
-                className="w-full bg-blue-500 text-white py-1.5 rounded hover:bg-blue-600 transition text-sm"
+                className="w-full bg-blue-500 text-white py-1.5 rounded hover:bg-blue-600 transition text-sm hover:cursor-pointer"
                 onClick={() => {
                   dispatch(addItemToCart({ ...product, quantity }));
                   setAddedToCart(true);
